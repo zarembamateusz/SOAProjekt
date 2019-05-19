@@ -1,3 +1,4 @@
+import API.REST.TestData;
 import Models.Zone;
 
 import javax.faces.bean.ManagedBean;
@@ -10,20 +11,11 @@ import java.util.List;
 @SessionScoped
 public class DashboardBean {
     //TODO delete test data and configure other data source
-    private List<Zone> zoneList = new ArrayList<Zone>(){{
-        add(new Zone(1,15,15));
-        add(new Zone(2,20,18));
-        add(new Zone(3,53,50));
-        add(new Zone(4,60,52));
-    }};
+    private List<Zone> zoneList = new ArrayList<Zone>();
 
     public List<Zone> getZoneList() {
-        return new ArrayList<Zone>(){{
-            add(new Zone(1,15,15));
-            add(new Zone(2,20,18));
-            add(new Zone(3,53,50));
-            add(new Zone(4,60,52));
-        }};
+        zoneList=TestData.zoneList;
+        return zoneList;
     }
 
     public void setZoneList(List<Zone> zoneList) {

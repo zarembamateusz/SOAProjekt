@@ -1,13 +1,13 @@
-package API.SOAP;
+package api.SOAP;
 
-import Models.User;
+
+import models.User;
 
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.List;
 
-@WebService(endpointInterface = "API.SOAP.ServiceSOAP")
+@WebService(endpointInterface = "api.SOAP.ServiceSOAP")
 public class ServiceSOAPlmplementation implements ServiceSOAP {
 
     @Inject

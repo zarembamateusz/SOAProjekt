@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import javax.enterprise.inject.Model;
 @Model

@@ -1,11 +1,14 @@
-package API.REST;
+package rest;
 
-import Models.Zone;
+
+import models.Zone;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TestData {
+
     public static List<Zone> zoneList = new ArrayList<Zone>(){{
         add(new Zone(1,15,15));
         add(new Zone(2,20,18));

@@ -1,38 +1,13 @@
 package Models;
 
+import lombok.Value;
+
+import java.util.Set;
+
+@Value
 public class Zone {
-    private long id;
-    private int takenSeat;
-    private int purchasedTickets;
+    private final String id;
+    private final Set<CarPlace> seats;
+    private final Set<User> responsibleUsers;
 
-    public long getId() {
-        return id;
-    }
-
-    public Zone(long id, int takenSeat, int purchasedTickets) {
-        this.id = id;
-        this.takenSeat = takenSeat;
-        this.purchasedTickets = purchasedTickets;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-
-    }
-
-    public int getTakenSeat() {
-        return takenSeat;
-    }
-
-    public void setTakenSeat(int takenSeat) {
-        this.takenSeat = takenSeat;
-    }
-
-    public int getPurchasedTickets() {
-        return purchasedTickets;
-    }
-
-    public void setPurchasedTickets(int purchasedTickets) {
-        this.purchasedTickets = purchasedTickets;
-    }
 }

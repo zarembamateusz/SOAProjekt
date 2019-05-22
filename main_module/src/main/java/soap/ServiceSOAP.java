@@ -1,4 +1,4 @@
-package api.SOAP;
+package soap;
 
 import models.User;
 

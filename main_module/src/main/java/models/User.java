@@ -4,6 +4,7 @@ import entity.Role;
 import lombok.*;
 
 import javax.enterprise.inject.Model;
+import java.util.HashSet;
 import java.util.Set;
 
 @Model
@@ -18,5 +19,6 @@ public class User {
     private String lastName;
     private String login;
     private String password;
-    private Set<String> zones;
+    @Builder.Default
+    private Set<String> zones = new HashSet<>();
 }

@@ -1,23 +1,30 @@
-package models;
+package entity;
 
-import entity.CarPlaceEntity;
-import entity.UserEntity;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
-@Value
+@Data
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ZoneEntity {
-    private final String id;
 
-    @OneToMany
-    private final Set<CarPlaceEntity> seats;
+    @Id
+    @Builder.Default
+    private final String id = UUID.randomUUID().toString();
 
-    private final Set<UserEntity> responsibleUsers;
+    @OneToMany(mappedBy = "zone")
+    private  Set<CarPlaceEntity> seats;
+
+    @ManyToMany
+    @JoinTable(
+            name = "work_zone",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "zone_id"))
+    private  Set<UserEntity> responsibleUsers;
 
 }

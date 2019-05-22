@@ -5,7 +5,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public abstract class GenericDao<ENTITY, ID> {
-    EntityManager em = Persistence
+    static final EntityManager em = Persistence
             .createEntityManagerFactory("JPA-Zajecia")
             .createEntityManager();
 
@@ -27,9 +27,9 @@ public abstract class GenericDao<ENTITY, ID> {
         em.getTransaction().commit();
     }
 
-    abstract void deleteById(final ID id);
+    abstract public void deleteById(final ID id);
 
-    abstract ENTITY findById(final ID id);
+    abstract public ENTITY findById(final ID id);
 
-    abstract List<ENTITY> getAll();
+    abstract public List<ENTITY> getAll();
 }

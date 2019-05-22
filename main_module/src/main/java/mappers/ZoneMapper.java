@@ -3,9 +3,9 @@ package mappers;
 import entity.CarPlaceEntity;
 import entity.TicketEntity;
 import entity.UserEntity;
+import entity.ZoneEntity;
 import lombok.experimental.UtilityClass;
 import models.*;
-import models.ZoneEntity;
 import utill.EntityUtill;
 
 import java.util.Set;
@@ -39,7 +39,7 @@ public class ZoneMapper {
                 .build();
     }
 
-    private Zone toDto(final ZoneEntity entity) {
+    public Zone toDto(final ZoneEntity entity) {
         return Zone.builder()
                 .id(entity.getId())
                 .workers(entity.getResponsibleUsers().stream().map(UserEntity::getId).collect(Collectors.toSet()))

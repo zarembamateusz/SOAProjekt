@@ -1,18 +1,25 @@
 package entity;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.UUID;
 
-@Value
+@Data
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarPlaceEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
     @OneToOne
-    private final TicketEntity ticketEntity;
+    private TicketEntity ticketEntity;
+
+    @ManyToOne
+    private ZoneEntity zone;
 }

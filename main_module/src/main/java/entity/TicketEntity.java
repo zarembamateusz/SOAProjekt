@@ -1,18 +1,21 @@
 package entity;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Value
+@Data
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class TicketEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

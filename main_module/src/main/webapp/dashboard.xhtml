@@ -13,31 +13,31 @@
 
     <p:outputLabel value="Witaj na swojej tablicy !"/>
 
-     <h:form id ="zoneInfo">
-         <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"  rowKey="#{zone.id}"
-                      emptyMessage="Nie można załadować danych o strefach !" >
+    <h:form id="zoneInfo">
+        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"
+                     rowKey="#{zone.id}"
+                     emptyMessage="Nie można załadować danych o strefach !">
 
-             <p:column headerText="Id strefy" style="width:140px;" >
-                 <h:outputText value="#{zone.id}" />
-             </p:column>
+            <p:column headerText="Id strefy" style="width:140px;">
+                <h:outputText value="#{zone.id}"/>
+            </p:column>
 
-             <p:column headerText="Liczba zajętych miejsc" style="width:140px;" >
-                 <h:outputText value="#{zone.takenSeat}" />
-             </p:column>
+            <p:column headerText="Liczba zajętych miejsc" style="width:140px;">
+                <ui:repeat value="#{zone.getPlaces()}" var="place">
+                    <h:outputText value="#{place.getId()}"/>
+                </ui:repeat>
+            </p:column>
 
-             <p:column headerText="Aktualnie zakupione bilety" style="width:140px;" >
-                 <h:outputText value="#{zone.purchasedTickets}" />
-             </p:column>
+            <p:column headerText="Aktualnie zakupione bilety" style="width:140px;">
+                <ui:repeat value="#{zone.getPlaces()}" var="place">
+                    <h:outputText value="#{place.getId()}"/>
+                </ui:repeat>
+            </p:column>
 
-         </p:dataTable>
-     </h:form>
+        </p:dataTable>
+    </h:form>
 
 </h:body>
-
-
-
-
-
 
 
 </html>

@@ -8,4 +8,8 @@ import lombok.Data;
 public class CarPlace {
     private String id;
     private Ticket currentTicket;
+
+    public boolean isFree() {
+        return currentTicket == null;
+    }
 }

@@ -1,26 +1,27 @@
 package entity;
 
-import lombok.Builder;
-import lombok.Value;
-import models.ZoneEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
-@Value
+@Data
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
-    private final String firstName;
-    private final String lastName;
-    private final String login;
-    private final String password;
+    private  String firstName;
+    private  String lastName;
+    private  String login;
+    private  String password;
     @Enumerated(EnumType.STRING)
-    private final Role role;
-    @ManyToMany
-    private final Set<ZoneEntity> zones;
+    private  Role role;
+    @ManyToMany(mappedBy = "responsibleUsers")
+    private  Set<ZoneEntity> zones;
 
 }

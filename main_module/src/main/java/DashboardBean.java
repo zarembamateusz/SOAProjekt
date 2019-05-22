@@ -1,5 +1,5 @@
-import API.REST.TestData;
-import Models.Zone;
+import rest.TestData;
+import models.Zone;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

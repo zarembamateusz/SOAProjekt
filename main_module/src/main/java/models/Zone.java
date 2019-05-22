@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 public class Zone {
     private long id;

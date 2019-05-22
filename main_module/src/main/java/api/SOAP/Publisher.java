@@ -1,4 +1,4 @@
-package API.SOAP;
+package api.SOAP;
 
 import javax.xml.ws.Endpoint;
 

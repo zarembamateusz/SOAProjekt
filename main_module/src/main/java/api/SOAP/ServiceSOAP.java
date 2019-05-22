@@ -1,5 +1,6 @@
-package API.SOAP;
-import Models.User;
+package api.SOAP;
+
+import models.User;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;

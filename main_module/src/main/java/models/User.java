@@ -1,36 +1,24 @@
 package models;
 
-import javax.enterprise.inject.Model;
-@Model
-public class User {
-    public User(){
+import entity.Role;
+import lombok.*;
 
-    }
-    private long id;
+import javax.enterprise.inject.Model;
+import java.util.HashSet;
+import java.util.Set;
+
+@Model
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    private String id;
+    private Role role;
     private String firstName;
     private String lastName;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    private String login;
+    private String password;
+    @Builder.Default
+    private Set<String> zones = new HashSet<>();
 }

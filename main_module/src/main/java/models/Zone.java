@@ -1,38 +1,18 @@
 package models;
 
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Data
+@Builder
 public class Zone {
-    private long id;
-    private int takenSeat;
-    private int purchasedTickets;
-
-    public long getId() {
-        return id;
-    }
-
-    public Zone(long id, int takenSeat, int purchasedTickets) {
-        this.id = id;
-        this.takenSeat = takenSeat;
-        this.purchasedTickets = purchasedTickets;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-
-    }
-
-    public int getTakenSeat() {
-        return takenSeat;
-    }
-
-    public void setTakenSeat(int takenSeat) {
-        this.takenSeat = takenSeat;
-    }
-
-    public int getPurchasedTickets() {
-        return purchasedTickets;
-    }
-
-    public void setPurchasedTickets(int purchasedTickets) {
-        this.purchasedTickets = purchasedTickets;
-    }
+    private String id;
+    @Builder.Default
+    private Set<CarPlace> places = new HashSet<>();
+    @Builder.Default
+    private Set<String> workers = new HashSet<>();
 }

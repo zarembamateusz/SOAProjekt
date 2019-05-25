@@ -29,7 +29,7 @@ public class DashboardBean implements Serializable {
         zoneList = TestData.zoneList;
         val user = User.builder().build();
         val zone = Zone.builder().build();
-        userService.create(user);
+//        userService.create(user);
         zoneService.create(zone);
         return zoneList;
     }

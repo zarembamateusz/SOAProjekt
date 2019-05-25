@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+
+    <p:outputLabel value="Witaj na swojej tablicy !"/>
+
+    <h:form id="zoneInfo">
+        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"
+                     rowKey="#{zone.id}"
+                     emptyMessage="Nie można załadować danych o strefach !">
+
+            <p:column headerText="Id strefy" style="width:140px;">
+                <h:outputText value="#{zone.id}"/>
+            </p:column>
+
+            <p:column headerText="Liczba zajętych miejsc" style="width:140px;">
+                <ui:repeat value="#{zone.getPlaces()}" var="place">
+                    <h:outputText value="#{place.getId()}"/>
+                </ui:repeat>
+            </p:column>
+
+            <p:column headerText="Aktualnie zakupione bilety" style="width:140px;">
+                <ui:repeat value="#{zone.getPlaces()}" var="place">
+                    <h:outputText value="#{place.getId()}"/>
+                </ui:repeat>
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+
+</h:body>
+
+
+</html>

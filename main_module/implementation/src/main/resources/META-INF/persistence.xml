@@ -15,24 +15,24 @@
         <properties>
 
             <!--z tym mi nie działa moze lepiej lokalnie odpalać i sobie zmieniąc?-->
-            <!--<property name="hibernate.connection.url" value="jdbc:mysql://mattiz20.atthost24.pl:3306/9574_SOA_projekt"/>-->
-            <!--<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>-->
-            <!--<property name="hibernate.connection.username" value="9574_SOA_projekt"/>-->
-            <!--<property name="hibernate.connection.password" value="@)!(_LABSOA2"/>-->
-            <!--<property name="hibernate.archive.autodetection" value="class"/>-->
-            <!--<property name="hibernate.show_sql" value="true"/>-->
-            <!--<property name="hibernate.format_sql" value="true"/>-->
-            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
-            <!--<property name="dialect" value=" org.hibernate.dialect.MySQLDialect"/>-->
-
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/admin"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.username" value="admin"/>
-            <property name="hibernate.connection.password" value="admin"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://mattiz20.atthost24.pl:3306/9574_SOA_projekt"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="9574_SOA_projekt"/>
+            <property name="hibernate.connection.password" value="@)!(_LABSOA2"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <!--<property name="dialect" value=" org.hibernate.dialect.MySQLDialect"/>-->
+
+            <!--<property name="hibernate.connection.url" value="jdbc:postgresql://localhost/admin"/>-->
+            <!--<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>-->
+            <!--<property name="hibernate.connection.username" value="admin"/>-->
+            <!--<property name="hibernate.connection.password" value="admin"/>-->
+            <!--<property name="hibernate.archive.autodetection" value="class"/>-->
+            <!--<property name="hibernate.show_sql" value="true"/>-->
+            <!--<property name="hibernate.format_sql" value="true"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
         </properties>
     </persistence-unit>
 

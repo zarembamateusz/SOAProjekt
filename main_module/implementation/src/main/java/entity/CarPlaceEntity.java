@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -20,9 +17,9 @@ public class CarPlaceEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private TicketEntity ticketEntity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private ZoneEntity zone;
 }

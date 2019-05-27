@@ -20,10 +20,12 @@ public class ZoneEntity {
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
 
-    @OneToMany(mappedBy = "zone")
+    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
     private  Set<CarPlaceEntity> seats;
 
-    @ManyToMany
+    private String code;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "work_zone",
             joinColumns = @JoinColumn(name = "user_id"),

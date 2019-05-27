@@ -1,7 +1,8 @@
-package api;
+package api.view;
 
 import api.rest.TestData;
 import lombok.val;
+import models.Role;
 import models.User;
 import models.Zone;
 import models.service.UserService;
@@ -27,9 +28,9 @@ public class DashboardBean implements Serializable {
 
     public List<Zone> getZoneList() {
         zoneList = TestData.zoneList;
-        val user = User.builder().build();
+        val user = User.builder().role(Role.ADMIN).build();
         val zone = Zone.builder().build();
-//        userService.create(user);
+        userService.create(user);
         zoneService.create(zone);
         return zoneList;
     }

@@ -1,4 +1,4 @@
-package api.beans;
+package beans;
 
 
 import models.User;

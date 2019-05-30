@@ -11,7 +11,7 @@ public class CarPlace implements Serializable {
     private String id;
     private Ticket currentTicket;
 
-    public boolean isFree() {
-        return currentTicket == null;
+    public boolean haveTicket() {
+        return currentTicket != null;
     }
 }

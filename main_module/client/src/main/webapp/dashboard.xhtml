@@ -23,15 +23,11 @@
             </p:column>
 
             <p:column headerText="Liczba zajętych miejsc" style="width:140px;">
-                <ui:repeat value="#{zone.getPlaces()}" var="place">
-                    <h:outputText value="#{place.getId()}"/>
-                </ui:repeat>
+                <h:outputText value="#{zone.getPlaces().size()}"/>
             </p:column>
 
             <p:column headerText="Aktualnie zakupione bilety" style="width:140px;">
-                <ui:repeat value="#{zone.getPlaces()}" var="place">
-                    <h:outputText value="#{place.getId()}"/>
-                </ui:repeat>
+                    <h:outputText value="#{DashboardBean.getNumberOfBuyTicket(zone.id)}"/>
             </p:column>
 
         </p:dataTable>

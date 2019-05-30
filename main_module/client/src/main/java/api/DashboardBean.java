@@ -2,6 +2,7 @@ package api;
 
 import api.rest.TestData;
 import lombok.val;
+import models.CarPlace;
 import models.User;
 import models.Zone;
 import models.service.UserService;
@@ -32,6 +33,17 @@ public class DashboardBean implements Serializable {
 //        userService.create(user);
         zoneService.create(zone);
         return zoneList;
+    }
+
+    public int getNumberOfBuyTicket(String id){
+        int buyTicket = 0;
+            for (Zone z : zoneList)
+                if(z.getId().equals(id))
+                    for (CarPlace cp : z.getPlaces())
+                        if (cp.haveTicket())
+                            buyTicket++;
+
+        return buyTicket;
     }
 
     public void setZoneList(List<Zone> zoneList) {

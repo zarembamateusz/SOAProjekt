@@ -1,4 +1,4 @@
-package api;
+package api.beans;
 
 import api.rest.TestData;
 import lombok.val;

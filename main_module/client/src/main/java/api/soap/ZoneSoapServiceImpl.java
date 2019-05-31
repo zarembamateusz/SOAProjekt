@@ -1,7 +1,7 @@
 package api.soap;
 
 import jms.Event;
-import jms.SoaTopic;
+import jms.service.JMSService;
 import models.Zone;
 import models.service.ZoneService;
 
@@ -16,7 +16,8 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/ZoneServiceImpl!models.service.ZoneService")
     private ZoneService zoneService;
 
-    SoaTopic topic;
+    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/JMSServiceImpl!jms.service.JMSService")
+    JMSService topic;
 
     @WebMethod
     @Override
@@ -27,7 +28,7 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
     @WebMethod
     @Override
     public void action(Event event) {
-        topic.send(event);
+        topic.sendTopic(event);
     }
 
     @Override

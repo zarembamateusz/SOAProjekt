@@ -41,7 +41,7 @@ public class Cmd {
                 val placeId = scanner.next();
                 out.println("Wybierz akcje");
                 out.println("1 -> przyjechał samochód");
-                out.println("2 -> przyjechał samochód");
+                out.println("2 -> odjechał samochód");
                 val actionNum = scanner.nextInt();
                 val event = createEvent(actionNum, placeId);
                 service.action(event);

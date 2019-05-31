@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head/>
+
+<style type="text/css">
+    .ui-datalist .ui-datalist-content {
+        border: 0 none
+    }
+
+    .ui-datalist ul {
+        padding: 0px 10px 0 20px;
+        margin: 5px 0;
+    }
+
+    .label, .value {
+        vertical-align: top
+    }
+
+    .output {
+        font-weight: bold
+    }
+
+    .ui-selectmanymenu {
+        width: 175px;
+    }
+</style>
+<h:body>
+    <h:panelGrid columns="1">
+        <h:form>
+            <h:outputLabel for="loginInput" value="Login"/>
+            <h:inputText id="loginInput" value="#{login}"/><br/>
+            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+                <h:outputLabel for="pwd1" value="Password 1: *"/>
+                <p:password id="pwd1" value="#{password}" match="pwd2" label="Password 1" feedback="true"
+                            required="true"/>
+                <h:outputLabel for="pwd2" value="Password 2: *"/>
+                <p:password id="pwd2" value="#{password}" label="Password 2" required="true" feedback="true"/>
+            </h:panelGrid> <h:outputLabel for="nameInput" value="Imie"/>
+            <h:inputText id="nameInput" value="#{name}"/><br/>
+            <h:outputLabel for="lastNameInput" value="Nazwisko"/>
+            <h:inputText id="lastNameInput" value="#{lastName}"/><br/>
+            <p:selectOneRadio id="role" value="#{role}" unselectable="true" required="true">
+                <f:selectItem itemLabel="WORKER" itemValue="WORKER"/>
+                <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
+            </p:selectOneRadio>
+            <h:outputLabel for="zoneInput" value="Strefa "/>
+            <h:selectOneMenu id="zoneInput" value="#{zone}" converter="zoneConverter" disabled="#{role =='ADMIN'}">
+                <f:selectItems value="#{ZoneBean.getAllZones()}" var="zzone" itemValue="#{zzone}" itemLabel="#{zzone.getCode()}"/>
+            </h:selectOneMenu>
+            <h:commandButton value="Dodaj" action="#{UserBean.createUser(login,password,name, lastname, role, zone)}"/>
+        </h:form>
+    </h:panelGrid>
+</h:body>
+</html>

@@ -1,9 +1,6 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import models.Role;
 
 import javax.persistence.*;
@@ -19,13 +16,14 @@ public class UserEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
-    private  String firstName;
-    private  String lastName;
-    private  String login;
-    private  String password;
+    private String firstName;
+    private String lastName;
+    private String login;
+    private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @ManyToMany(mappedBy = "responsibleUsers")
-    private  Set<ZoneEntity> zones;
+    @ManyToMany(mappedBy = "responsibleUsers", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    private Set<ZoneEntity> zones;
 
 }

@@ -4,15 +4,23 @@ package service;
 import dao.UserDao;
 import dao.ZoneDao;
 import entity.UserEntity;
+import entity.ZoneEntity;
 import lombok.val;
 import mappers.UserMapper;
+import models.Role;
 import models.User;
+import models.Zone;
 import models.service.UserService;
 
 import javax.ejb.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import static models.Role.*;
 
 
 @Remote(UserService.class)
@@ -23,7 +31,8 @@ public class UserServiceImpl implements UserService {
     private final ZoneDao zoneDao = ZoneDao.create();
 
 
-    public UserServiceImpl(){}
+    public UserServiceImpl() {
+    }
 
     @Override
     public void update(User user) {
@@ -60,9 +69,46 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserEntity toEntity(final User user) {
-        val zones = user.getZones().stream()
-                .map(zoneDao::findById)
-                .collect(Collectors.toSet());
-        return UserMapper.toEntity(user, zones);
+        Set<ZoneEntity> zones;
+        if (ADMIN.equals(user.getRole())) zones = new HashSet<>(zoneDao.getAll());
+        else {
+            zones = user.getZones().stream()
+                    .filter(Objects::nonNull)
+                    .map(zoneDao::findById)
+                    .collect(Collectors.toSet());
+        }
+        val entity= UserMapper.toEntity(user, zones);
+        return entity;
+    }
+
+    @Override
+    public List<User> getAdmins() {
+        return getAll()
+                .stream()
+                .filter(user -> user.getRole().equals(ADMIN))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getWorkers() {
+        return getAll()
+                .stream()
+                .filter(user -> user.getRole().equals(WORKER))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createUser(final String login, final String password, final String name,
+                           final String lastName, final Role role, final String zoneId) {
+
+        val user = User.builder()
+                .zone(zoneId)
+                .password(password)
+                .login(login)
+                .lastName(lastName)
+                .firstName(name)
+                .role(role)
+                .build();
+        create(user);
     }
 }

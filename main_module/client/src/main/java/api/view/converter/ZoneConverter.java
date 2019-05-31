@@ -1,8 +1,6 @@
 package api.view.converter;
 
-import api.view.UserBean;
-import api.view.ZoneBean;
-import models.User;
+import beans.ZoneBean;
 import models.Zone;
 
 import javax.el.ValueExpression;

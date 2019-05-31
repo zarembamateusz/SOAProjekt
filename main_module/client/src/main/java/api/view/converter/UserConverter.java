@@ -1,6 +1,6 @@
 package api.view.converter;
 
-import api.view.UserBean;
+import beans.UserBean;
 import models.User;
 
 import javax.el.ValueExpression;

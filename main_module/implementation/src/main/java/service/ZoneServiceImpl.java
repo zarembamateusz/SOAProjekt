@@ -54,6 +54,15 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
     }
 
     @Override
+    public Zone getZoneByCode(String code) {
+        return getAll()
+                .stream()
+                .filter(zone -> zone.getCode().equals(code))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public void delete(Zone zone) {
         zoneDao.delete(toEntity(zone));
 

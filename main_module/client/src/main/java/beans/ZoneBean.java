@@ -1,4 +1,4 @@
-package api.view;
+package beans;
 
 
 import lombok.Getter;

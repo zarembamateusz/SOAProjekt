@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -35,15 +36,13 @@ public class DashboardBean implements Serializable {
         return zoneList;
     }
 
-    public int getNumberOfBuyTicket(String id){
-        int buyTicket = 0;
-            for (Zone z : zoneList)
-                if(z.getId().equals(id))
-                    for (CarPlace cp : z.getPlaces())
-                        if (cp.haveTicket())
-                            buyTicket++;
-
-        return buyTicket;
+    public long getNumberOfBuyTicket(String id){
+        return zoneList.stream()
+                .filter(zone -> zone.getId().equals(id))
+                .map(Zone::getPlaces)
+                .flatMap(Collection::stream)
+                .filter(CarPlace::haveTicket)
+                .count();
     }
 
     public void setZoneList(List<Zone> zoneList) {

@@ -1,8 +1,10 @@
 package service;
 
+import dao.EventDao;
 import dao.UserDao;
 import dao.ZoneDao;
 import entity.ZoneEntity;
+import jms.Event;
 import lombok.NoArgsConstructor;
 import lombok.val;
 import mappers.ZoneMapper;
@@ -17,6 +19,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -62,6 +65,8 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .orElse(null);
     }
 
+
+
     @Override
     public void delete(Zone zone) {
         zoneDao.delete(toEntity(zone));
@@ -97,6 +102,10 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
         update(zone);
     }
 
+    public CarPlace getByCarId(String id) {
+        return ZoneMapper.toCarPlace(zoneDao.getCarPlaceById(id));
+    }
+
     private ZoneEntity toEntity(final Zone zone) {
         val workers = zone.getWorkers()
                 .stream()
@@ -104,6 +113,7 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .collect(Collectors.toSet());
         return ZoneMapper.toEntity(zone, workers);
     }
+
 
     private Set<CarPlace> carPlaces(final int number) {
         return Stream.iterate(0, i -> i + 1).limit(number)

@@ -5,6 +5,7 @@ import entity.TicketEntity;
 import entity.UserEntity;
 import entity.ZoneEntity;
 import lombok.experimental.UtilityClass;
+import lombok.val;
 import models.CarPlace;
 import models.Ticket;
 import models.Zone;
@@ -18,20 +19,23 @@ import java.util.stream.Collectors;
 public class ZoneMapper {
 
     public ZoneEntity toEntity(final Zone dto, final Set<UserEntity> entities) {
-        return ZoneEntity.builder()
+        val zoneEntity = ZoneEntity.builder()
                 .id(EntityUtill.extractId(dto::getId))
                 .code(dto.getCode())
                 .responsibleUsers(entities)
-                .seats(dto.getPlaces().stream().map(ZoneMapper::toCarPlaceEntity).collect(Collectors.toSet()))
                 .responsibleUsers(entities)
                 .build();
+
+        zoneEntity.setSeats(dto.getPlaces().stream().map(p -> toCarPlaceEntity(p, zoneEntity)).collect(Collectors.toSet()));
+        return zoneEntity;
     }
 
 
-    private CarPlaceEntity toCarPlaceEntity(final CarPlace place) {
+    private CarPlaceEntity toCarPlaceEntity(final CarPlace place, final ZoneEntity zoneEntity) {
         return CarPlaceEntity.builder()
                 .id(EntityUtill.extractId(place::getId))
                 .ticketEntity(toTicketEntity(place.getCurrentTicket()))
+                .zone(zoneEntity)
                 .build();
     }
 
@@ -54,7 +58,8 @@ public class ZoneMapper {
                 .build();
     }
 
-    private CarPlace toCarPlace(final CarPlaceEntity entity) {
+    public CarPlace toCarPlace(final CarPlaceEntity entity) {
+
         return CarPlace.builder()
                 .id(entity.getId())
                 .currentTicket(toTicket(entity.getTicketEntity()))

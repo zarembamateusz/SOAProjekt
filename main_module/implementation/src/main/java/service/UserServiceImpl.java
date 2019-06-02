@@ -7,6 +7,7 @@ import entity.UserEntity;
 import entity.ZoneEntity;
 import lombok.val;
 import mappers.UserMapper;
+import mappers.ZoneMapper;
 import models.Role;
 import models.User;
 import models.Zone;
@@ -77,8 +78,15 @@ public class UserServiceImpl implements UserService {
                     .map(zoneDao::findById)
                     .collect(Collectors.toSet());
         }
-        val entity= UserMapper.toEntity(user, zones);
+        val entity = UserMapper.toEntity(user, zones);
         return entity;
+    }
+
+    @Override
+    public List<User> getByZoneId(String zoneId) {
+        return userDao.findByZoneId(zoneId).stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override

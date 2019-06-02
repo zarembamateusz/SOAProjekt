@@ -27,6 +27,8 @@ public class ObjectFactory {
     private final static QName _GetAllZones_QNAME = new QName("http://soap.api/", "getAllZones");
     private final static QName _Action_QNAME = new QName("http://soap.api/", "action");
     private final static QName _GetAllZonesResponse_QNAME = new QName("http://soap.api/", "getAllZonesResponse");
+    private final static QName _GetZoneByCode_QNAME = new QName("http://soap.api/", "getZoneByCode");
+    private final static QName _GetZoneByCodeResponse_QNAME = new QName("http://soap.api/", "getZoneByCodeResponse");
     private final static QName _ActionResponse_QNAME = new QName("http://soap.api/", "actionResponse");
 
     /**
@@ -58,6 +60,22 @@ public class ObjectFactory {
      */
     public GetAllZonesResponse createGetAllZonesResponse() {
         return new GetAllZonesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetZoneByCode }
+     * 
+     */
+    public GetZoneByCode createGetZoneByCode() {
+        return new GetZoneByCode();
+    }
+
+    /**
+     * Create an instance of {@link GetZoneByCodeResponse }
+     * 
+     */
+    public GetZoneByCodeResponse createGetZoneByCodeResponse() {
+        return new GetZoneByCodeResponse();
     }
 
     /**
@@ -133,6 +151,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://soap.api/", name = "getAllZonesResponse")
     public JAXBElement<GetAllZonesResponse> createGetAllZonesResponse(GetAllZonesResponse value) {
         return new JAXBElement<GetAllZonesResponse>(_GetAllZonesResponse_QNAME, GetAllZonesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetZoneByCode }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.api/", name = "getZoneByCode")
+    public JAXBElement<GetZoneByCode> createGetZoneByCode(GetZoneByCode value) {
+        return new JAXBElement<GetZoneByCode>(_GetZoneByCode_QNAME, GetZoneByCode.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetZoneByCodeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.api/", name = "getZoneByCodeResponse")
+    public JAXBElement<GetZoneByCodeResponse> createGetZoneByCodeResponse(GetZoneByCodeResponse value) {
+        return new JAXBElement<GetZoneByCodeResponse>(_GetZoneByCodeResponse_QNAME, GetZoneByCodeResponse.class, null, value);
     }
 
     /**

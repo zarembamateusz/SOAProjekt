@@ -46,4 +46,18 @@ public interface ZoneSoapService {
         @WebParam(name = "arg0", targetNamespace = "")
         Event arg0);
 
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns api.soap.Zone
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getZoneByCode", targetNamespace = "http://soap.api/", className = "api.soap.GetZoneByCode")
+    @ResponseWrapper(localName = "getZoneByCodeResponse", targetNamespace = "http://soap.api/", className = "api.soap.GetZoneByCodeResponse")
+    public Zone getZoneByCode(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
 }

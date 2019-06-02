@@ -33,5 +33,11 @@ public class UserDao extends GenericDao<UserEntity, String> {
         val query = em.createQuery("FROM UserEntity", UserEntity.class);
         return query.getResultList();
     }
+
+    public List<UserEntity> findByZoneId(String zoneId) {
+        return em.createQuery("SELECT b from UserEntity b join ZoneEntity z where  z.id= :zoneId", UserEntity.class)
+                .setParameter("zoneId", zoneId)
+                .getResultList();
+    }
 }
 

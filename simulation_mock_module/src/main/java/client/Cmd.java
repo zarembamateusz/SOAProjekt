@@ -43,7 +43,7 @@ public class Cmd {
                 out.println("1 -> przyjechał samochód");
                 out.println("2 -> odjechał samochód");
                 val actionNum = scanner.nextInt();
-                val event = createEvent(actionNum, placeId);
+                val event = createEvent(actionNum, placeId, zone.getId());
                 service.action(event);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -52,8 +52,9 @@ public class Cmd {
         }
     }
 
-    private Event createEvent(final int actionNum, final String carPlaceId) {
+    private Event createEvent(final int actionNum, final String carPlaceId, final String zoneId) {
         val event = new Event();
+        event.setZoneId(zoneId);
         event.setCarPlaceId(carPlaceId);
         event.setType(actionNum == 1 ? EventType.CAR_IN : EventType.CAR_OUT);
         return event;

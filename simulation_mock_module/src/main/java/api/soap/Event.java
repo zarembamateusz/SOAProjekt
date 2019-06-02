@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="carPlaceId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="type" type="{http://soap.api/}eventType" minOccurs="0"/>
+ *         &lt;element name="zoneId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "event", propOrder = {
     "carPlaceId",
     "description",
-    "type"
+    "type",
+    "zoneId"
 })
 public class Event {
 
@@ -40,6 +42,7 @@ public class Event {
     protected String description;
     @XmlSchemaType(name = "string")
     protected EventType type;
+    protected String zoneId;
 
     /**
      * Gets the value of the carPlaceId property.
@@ -111,6 +114,30 @@ public class Event {
      */
     public void setType(EventType value) {
         this.type = value;
+    }
+
+    /**
+     * Gets the value of the zoneId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getZoneId() {
+        return zoneId;
+    }
+
+    /**
+     * Sets the value of the zoneId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setZoneId(String value) {
+        this.zoneId = value;
     }
 
 }

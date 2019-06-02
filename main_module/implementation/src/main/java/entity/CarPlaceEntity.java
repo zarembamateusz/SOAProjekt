@@ -21,5 +21,7 @@ public class CarPlaceEntity {
     private TicketEntity ticketEntity;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "zone_id")
     private ZoneEntity zone;
+
 }

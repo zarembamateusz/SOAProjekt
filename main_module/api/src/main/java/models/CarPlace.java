@@ -15,6 +15,10 @@ public class CarPlace implements Serializable {
     private String id;
     private Ticket currentTicket;
 
+    public Boolean isTicketExpired() {
+        if (currentTicket == null) return false;
+        else return currentTicket.isExpired();
+    }
     public boolean haveTicket() {
         return currentTicket != null;
     }

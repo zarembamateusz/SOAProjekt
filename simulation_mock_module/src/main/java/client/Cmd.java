@@ -31,7 +31,7 @@ public class Cmd {
                 val code = scanner.next();
                 out.println("Wybrano " + code);
                 val zone = zones.stream()
-                        .filter(z -> z.getCode().equals(code))
+                        .filter(z -> code.equals(z.getCode()))
                         .findFirst()
                         .orElseThrow(RuntimeException::new);
                 out.println("Wybierz miejsce");

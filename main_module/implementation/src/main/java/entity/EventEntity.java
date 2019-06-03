@@ -1,18 +1,17 @@
 package entity;
 
 import jms.EventType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-import models.CarPlace;
-import models.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class EventEntity {

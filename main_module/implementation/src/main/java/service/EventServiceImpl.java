@@ -9,15 +9,18 @@ import models.service.EventService;
 import lombok.val;
 import mappers.EventMapper;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Remote(EventService.class)
 @Stateless
-public class EventServiceImpl implements EventService {
+public class EventServiceImpl implements EventService, Serializable {
 
     private final ZoneDao zoneDao = ZoneDao.create();
-    private EventDao eventDao = EventDao.create();
+    private final EventDao eventDao = EventDao.create();
     private final UserDao userDao = UserDao.create();
 
     @Override

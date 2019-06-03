@@ -12,6 +12,7 @@
         <class>entity.CarPlaceEntity</class>
         <class>entity.TicketEntity</class>
         <class>entity.ZoneEntity</class>
+        <class>entity.EventEntity</class>
         <properties>
 
             <!--z tym mi nie działa moze lepiej lokalnie odpalać i sobie zmieniąc?-->

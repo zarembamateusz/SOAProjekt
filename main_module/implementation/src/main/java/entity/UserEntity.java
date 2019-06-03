@@ -24,6 +24,7 @@ public class UserEntity {
     private Role role;
     @ManyToMany(mappedBy = "responsibleUsers", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<ZoneEntity> zones;
 
 }

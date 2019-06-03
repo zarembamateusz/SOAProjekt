@@ -1,9 +1,6 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,6 +18,8 @@ public class ZoneEntity {
     private final String id = UUID.randomUUID().toString();
 
     @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private  Set<CarPlaceEntity> seats;
 
     private String code;

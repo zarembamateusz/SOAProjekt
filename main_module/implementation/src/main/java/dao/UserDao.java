@@ -35,7 +35,7 @@ public class UserDao extends GenericDao<UserEntity, String> {
     }
 
     public List<UserEntity> findByZoneId(String zoneId) {
-        return em.createQuery("SELECT b from UserEntity b join ZoneEntity z where  z.id= :zoneId", UserEntity.class)
+        return em.createQuery("SELECT b from UserEntity b inner join b.zones as z where z.id= :zoneId", UserEntity.class)
                 .setParameter("zoneId", zoneId)
                 .getResultList();
     }

@@ -23,10 +23,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class DetectionService {
 
-    @Inject
-    ZoneService zoneService;
-    @Inject
-    UserService userService;
+    ZoneService zoneService = new ZoneServiceImpl();
 
     EventDao eventDao = EventDao.create();
 

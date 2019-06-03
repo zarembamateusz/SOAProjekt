@@ -1,5 +1,11 @@
 package app;
 
+import jms.Event;
+import jms.EventType;
+import lombok.val;
+import models.service.EventService;
+import models.service.UserService;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -8,14 +14,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
-import jms.Event;
-import jms.EventType;
-import lombok.val;
-import models.service.EventService;
-import models.service.UserService;
-import models.service.ZoneService;
-
-@MessageDriven(activationConfig = {@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/topic/SOA_Test"),
+@MessageDriven(activationConfig = {@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/topic/test"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
         @ActivationConfigProperty(propertyName = "subscriptionDurability",
                 propertyValue = "Durable")})

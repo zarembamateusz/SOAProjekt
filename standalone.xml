@@ -170,6 +170,34 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
                     </validation>
                 </datasource>
+                <datasource jndi-name="java:/MySql" pool-name="MySql" enabled="true">
+                    <connection-url>jdbc:mysql://mattiz20.atthost24.pl:3306/9574_SOA_projekt</connection-url>
+                    <driver-class>com.mysql.jdbc.Driver</driver-class>
+                    <driver>mysql-connector-java-5.1.47-bin.jar_com.mysql.jdbc.Driver_5_1</driver>
+                    <security>
+                        <user-name>9574_SOA_projekt</user-name>
+                        <password>@)!(_LABSOA2</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
+                        <background-validation>true</background-validation>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
+                    </validation>
+                </datasource>
+                <datasource jndi-name="java:/MySql/baza" pool-name="baza">
+                    <connection-url>jdbc:mysql://mattiz20.atthost24.pl:3306/9574_SOA_projekt</connection-url>
+                    <driver-class>com.mysql.jdbc.Driver</driver-class>
+                    <driver>mysql-connector-java-5.1.47.jar_com.mysql.jdbc.Driver_5_1</driver>
+                    <security>
+                        <user-name>9574_SOA_projekt</user-name>
+                        <password>@)!(_LABSOA2</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
+                        <background-validation>true</background-validation>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
+                    </validation>
+                </datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
@@ -506,9 +534,9 @@
                 <security-domain name="test-policy" cache-type="default">
                     <authentication>
                         <login-module code="Database" flag="required">
-                            <module-option name="ExampleS" value="java:jboss/datasources"/>
-                            <module-option name="principalsQuery" value="SELECT password FROM UserEntity WHERE login=?"/>
-                            <module-option name="rolesQuery" value="SELECT role FROM UserEntity WHERE login=?"/>
+                            <module-option name="dsJndiName" value="java:/MySql"/>
+                            <module-option name="principalsQuery" value="SELECT password FROM UserEntity where login=?"/>
+                            <module-option name="rolesQuery" value="select role, 'Roles' from UserEntity where login=?"/>
                             <module-option name="unauthenticatedIdentity" value="guest"/>
                         </login-module>
                     </authentication>
@@ -587,9 +615,6 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="implementation-1.0-SNAPSHOT" runtime-name="implementation-1.0-SNAPSHOT.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\main_module\implementation\target\implementation-1.0-SNAPSHOT"/>
-        </deployment>
         <deployment name="mysql-connector-java-5.1.47.jar" runtime-name="mysql-connector-java-5.1.47.jar">
             <content sha1="3b9377170e244d39019b539e263c867d25952577"/>
         </deployment>
@@ -602,8 +627,14 @@
         <deployment name="client_war_exploded" runtime-name="client_war_exploded.war">
             <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\client_war_exploded"/>
         </deployment>
+        <deployment name="implementation.jar" runtime-name="implementation.jar">
+            <fs-archive path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\implementation_jar\implementation.jar"/>
+        </deployment>
         <deployment name="simulation_mock_module_war_exploded2" runtime-name="simulation_mock_module_war_exploded2.war">
             <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\simulation_mock_module_war_exploded2"/>
+        </deployment>
+        <deployment name="implementation-1.0-SNAPSHOT" runtime-name="implementation-1.0-SNAPSHOT.war">
+            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\main_module\implementation\target\implementation-1.0-SNAPSHOT"/>
         </deployment>
         <deployment name="client-1.0-SNAPSHOT" runtime-name="client-1.0-SNAPSHOT.war">
             <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\main_module\client\target\client-1.0-SNAPSHOT"/>

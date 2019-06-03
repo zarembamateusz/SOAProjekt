@@ -6,5 +6,5 @@
         version="8.0"
 >
     <context-root>/</context-root>
-    <!--<security-domain>java:/jaas/other</security-domain>-->
+    <security-domain>java:/jaas/test-policy</security-domain>
 </jboss-web>

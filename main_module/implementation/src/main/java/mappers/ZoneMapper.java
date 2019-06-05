@@ -32,17 +32,18 @@ public class ZoneMapper {
 
 
     private CarPlaceEntity toCarPlaceEntity(final CarPlace place, final ZoneEntity zoneEntity) {
-        return CarPlaceEntity.builder()
+        val entity =  CarPlaceEntity.builder()
                 .id(EntityUtill.extractId(place::getId))
-                .ticketEntity(toTicketEntity(place.getCurrentTicket()))
                 .zone(zoneEntity)
                 .build();
+        val ticket = toTicketEntity(entity,place.getCurrentTicket());
+        entity.setTicketEntity(ticket);
+        return entity;
     }
 
-    private TicketEntity toTicketEntity(final Ticket ticket) {
+    private TicketEntity toTicketEntity(final CarPlaceEntity entity, final Ticket ticket) {
         if (ticket == null) return null;
-        else
-            return TicketEntity.builder()
+        return TicketEntity.builder()
                     .id(EntityUtill.extractId(ticket::getId))
                     .endTime(ticket.getEndTime())
                     .startTime(ticket.getStartTime())

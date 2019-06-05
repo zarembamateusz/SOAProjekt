@@ -31,8 +31,10 @@ public class ZoneDao extends GenericDao<ZoneEntity, String> {
 
     @Override
     public List<ZoneEntity> getAll() {
-        val query = em.createQuery("FROM ZoneEntity", ZoneEntity.class);
-        return query.getResultList();
+        em.getTransaction().begin();
+        val query = em.createQuery("FROM ZoneEntity", ZoneEntity.class).getResultList();
+        em.getTransaction().commit();
+        return query;
     }
 
     public CarPlaceEntity getCarPlaceById(String id) {

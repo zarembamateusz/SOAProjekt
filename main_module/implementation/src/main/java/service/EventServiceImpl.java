@@ -42,6 +42,11 @@ public class EventServiceImpl implements EventService, Serializable {
     }
 
     @Override
+    public List<Event> getAll() {
+        return eventDao.getAll().stream().map(EventMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
     public void carIn(Event event) {
         userDao.findByZoneId(event.getZoneId())
                 .stream()

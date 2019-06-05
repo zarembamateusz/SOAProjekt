@@ -30,8 +30,10 @@ public class EventDao extends GenericDao<EventEntity, String> {
 
     @Override
     public List<EventEntity> getAll() {
-        val query = em.createQuery("FROM EventEntity ", EventEntity.class);
-        return query.getResultList();
+        em.getTransaction().begin();
+        val query = em.createQuery("FROM EventEntity ", EventEntity.class).getResultList();
+        em.getTransaction().commit();
+        return query;
     }
 
     public List<EventEntity> findAllUserEvents(String userId) {

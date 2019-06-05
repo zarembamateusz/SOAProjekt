@@ -17,7 +17,7 @@ public class CarPlaceEntity {
     @Id
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "carPlace")
     private TicketEntity ticketEntity;
 
     @ManyToOne(cascade = CascadeType.ALL)

@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class Ticket implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    public boolean isExpired() {
+    public boolean checkIfIsExpired() {
         return endTime.isBefore(LocalDateTime.now());
     }
 }

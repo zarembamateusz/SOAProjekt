@@ -79,6 +79,10 @@ public class UserServiceImpl implements UserService {
                     .collect(Collectors.toSet());
         }
         val entity = UserMapper.toEntity(user, zones);
+        zones.forEach(zoneEntity -> {
+            val users = zoneEntity.getResponsibleUsers();
+            users.add(entity);
+        });
         return entity;
     }
 

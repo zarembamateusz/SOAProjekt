@@ -3,6 +3,7 @@ package service;
 import dao.EventDao;
 import dao.UserDao;
 import dao.ZoneDao;
+import entity.UserEntity;
 import entity.ZoneEntity;
 import jms.Event;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
 
     private final UserDao userDao = UserDao.create();
     private final ZoneDao zoneDao = ZoneDao.create();
+    private final EventDao eventDao = EventDao.create();
 
     @Override
     public void update(Zone zone) {
@@ -41,7 +43,14 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
 
     @Override
     public void create(Zone zone) {
-        zoneDao.create(toEntity(zone));
+        val workers = zone.getWorkers()
+                .stream()
+                .map(userDao::findById)
+                .collect(Collectors.toSet());
+        val entity = ZoneMapper.toEntity(zone,workers);
+        workers.stream().map(UserEntity::getZones).forEach(zones-> zones.add(entity));
+
+        zoneDao.create(entity);
 
     }
 
@@ -99,6 +108,8 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                         .startTime(LocalDateTime.now())
                         .endTime(endTime)
                         .build()));
+        eventDao.findAllPlaceEvents(placeId)
+                .forEach(eventDao::delete);
         update(zone);
     }
 
@@ -111,7 +122,8 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .stream()
                 .map(userDao::findById)
                 .collect(Collectors.toSet());
-        return ZoneMapper.toEntity(zone, workers);
+        val entity = ZoneMapper.toEntity(zone, workers);
+        return entity;
     }
 
 

@@ -20,15 +20,15 @@ public class ZoneEntity {
     @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private  Set<CarPlaceEntity> seats;
+    private Set<CarPlaceEntity> seats;
 
     private String code;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "work_zone",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "zone_id"))
-    private  Set<UserEntity> responsibleUsers;
+    private Set<UserEntity> responsibleUsers;
 
 }

@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +16,10 @@ public class CarPlace implements Serializable {
     private String id;
     private Ticket currentTicket;
 
+    @JsonIgnore
     public Boolean isTicketExpired() {
         if (currentTicket == null) return false;
-        else return currentTicket.isExpired();
+        else return currentTicket.checkIfIsExpired();
     }
     public boolean haveTicket() {
         return currentTicket != null;

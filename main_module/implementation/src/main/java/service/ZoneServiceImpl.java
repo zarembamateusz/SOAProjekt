@@ -15,6 +15,7 @@ import models.User;
 import models.Zone;
 import models.service.ZoneService;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -30,6 +31,7 @@ import java.util.stream.Stream;
 @Remote(ZoneService.class)
 @Stateless
 @NoArgsConstructor
+@PermitAll
 public class ZoneServiceImpl implements ZoneService, Serializable {
 
     private final UserDao userDao = UserDao.create();

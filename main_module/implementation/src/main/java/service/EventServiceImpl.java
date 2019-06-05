@@ -9,6 +9,7 @@ import models.service.EventService;
 import lombok.val;
 import mappers.EventMapper;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Remote(EventService.class)
 @Stateless
+@PermitAll
 public class EventServiceImpl implements EventService, Serializable {
 
     private final ZoneDao zoneDao = ZoneDao.create();

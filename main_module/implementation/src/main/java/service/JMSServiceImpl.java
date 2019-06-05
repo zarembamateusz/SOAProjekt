@@ -5,7 +5,7 @@ import jms.Event;
 import jms.service.JMSService;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,6 +14,7 @@ import javax.jms.Topic;
 
 @Remote(JMSService.class)
 @Stateless
+@PermitAll
 public class JMSServiceImpl implements JMSService{
 
     @Resource(mappedName = "java:jboss/exported/jms/topic/test")

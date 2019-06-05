@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Schedule;
 import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
@@ -28,9 +29,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Singleton
+@PermitAll
 public class DetectionService {
 
-    private final static ZoneService zoneService = new ZoneServiceImpl();
+    private final ZoneService zoneService = new ZoneServiceImpl();
 
     private final static EventDao eventDao = EventDao.create();
     private final static Logger logger = Logger.getLogger(DetectionService.class);

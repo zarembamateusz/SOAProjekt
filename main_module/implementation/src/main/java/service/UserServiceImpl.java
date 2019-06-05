@@ -13,6 +13,7 @@ import models.User;
 import models.Zone;
 import models.service.UserService;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import static models.Role.*;
 
 @Remote(UserService.class)
 @Stateless
+@PermitAll
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = UserDao.create();

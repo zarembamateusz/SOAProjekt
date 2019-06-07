@@ -7,27 +7,26 @@ import entity.UserEntity;
 import entity.ZoneEntity;
 import lombok.val;
 import mappers.UserMapper;
-import mappers.ZoneMapper;
 import models.Role;
 import models.User;
-import models.Zone;
 import models.service.UserService;
 
 import javax.annotation.security.PermitAll;
-import javax.ejb.*;
-import java.io.Serializable;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static models.Role.*;
+import static models.Role.MANAGER;
+import static models.Role.WORKER;
 
 
 @Remote(UserService.class)
 @Stateless
-@PermitAll
+
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = UserDao.create();
@@ -64,6 +63,7 @@ public class UserServiceImpl implements UserService {
         return UserMapper.toDto(userDao.findById(id));
     }
 
+    @PermitAll
     @Override
     public List<User> getAll() {
         return userDao.getAll().stream()
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     private UserEntity toEntity(final User user) {
         Set<ZoneEntity> zones;
-        if (ADMIN.equals(user.getRole())) zones = new HashSet<>(zoneDao.getAll());
+        if (MANAGER.equals(user.getRole())) zones = new HashSet<>(zoneDao.getAll());
         else {
             zones = user.getZones().stream()
                     .filter(Objects::nonNull)
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAdmins() {
         return getAll()
                 .stream()
-                .filter(user -> user.getRole().equals(ADMIN))
+                .filter(user -> user.getRole().equals(MANAGER))
                 .collect(Collectors.toList());
     }
 

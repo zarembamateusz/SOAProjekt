@@ -46,9 +46,10 @@ public class DashboardBean implements Serializable {
     public List<Zone> getZoneList() {
         if (currentUser.getRole() == Role.Manager)
             zoneList = zoneService.getAll();
-        else {
-            //TODO showing zone for worker
-        }
+        else
+            if(currentUser.getZones().size()>0)
+                zoneService.findById(currentUser.getZones().stream().findAny().get());
+
 
         return zoneList;
     }

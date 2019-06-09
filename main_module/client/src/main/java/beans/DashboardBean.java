@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 
@@ -47,7 +48,8 @@ public class DashboardBean implements Serializable {
         if (currentUser.getRole() == Role.Manager)
             zoneList = zoneService.getAll();
         else {
-            //TODO showing zone for worker
+            zoneList = currentUser.getZones().stream().map(zoneService::findById)
+                    .collect(Collectors.toList());
         }
 
         return zoneList;

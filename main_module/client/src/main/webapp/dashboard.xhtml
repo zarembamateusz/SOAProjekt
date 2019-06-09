@@ -17,8 +17,7 @@
     </h:form>
 
     <h:form id="zoneInfo">
-        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"
-                     rowKey="#{zone.id}"
+        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}"
                      emptyMessage="Nie można załadować danych o strefach !">
 
             <p:column headerText="Id strefy" style="width:140px;">

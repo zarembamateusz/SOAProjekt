@@ -1,6 +1,5 @@
 package beans;
 
-import lombok.val;
 import models.Role;
 import models.User;
 import models.Zone;
@@ -50,5 +49,10 @@ public class UserBean implements Serializable {
         userService.createUser(login, password, name, lastName, Role.valueOf(role), Optional.ofNullable(zone)
                 .map(Zone::getId)
                 .orElse(null));
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/user.xhtml";
     }
 }

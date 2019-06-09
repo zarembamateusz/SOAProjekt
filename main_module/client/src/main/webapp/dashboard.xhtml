@@ -12,6 +12,9 @@
 <h:body>
 
     <p:outputLabel value="Witaj na swojej tablicy !" />
+    <h:form>
+        <p:commandButton action="#{DashboardBean.logout}" value="Wyloguj"  ajax="false"/>
+    </h:form>
 
     <h:form id="zoneInfo">
         <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"

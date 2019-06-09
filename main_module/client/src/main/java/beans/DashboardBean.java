@@ -14,10 +14,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 
 @ManagedBean(name = "DashboardBean")
@@ -69,5 +69,10 @@ public class DashboardBean implements Serializable {
 
     public void setZoneList(List<Zone> zoneList) {
         this.zoneList = zoneList;
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/dashboard.xhtml";
     }
 }

@@ -86,4 +86,9 @@ public class PasswordsBean {
 
         }
     }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/passwords.xhtml";
+    }
 }

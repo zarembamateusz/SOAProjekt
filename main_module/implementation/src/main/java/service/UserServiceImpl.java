@@ -13,15 +13,15 @@ import models.User;
 import models.Zone;
 import models.service.UserService;
 import org.jboss.annotation.security.SecurityDomain;
+import util.PasswordUtil;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static models.Role.*;
@@ -114,13 +114,14 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public void createUser(final String login, final String password, final String name,
                            final String lastName, final Role role, final String zoneId) {
 
         val user = User.builder()
                 .zone(zoneId)
-                .password(password)
+                .password(PasswordUtil.encode(password))
                 .login(login)
                 .lastName(lastName)
                 .firstName(name)

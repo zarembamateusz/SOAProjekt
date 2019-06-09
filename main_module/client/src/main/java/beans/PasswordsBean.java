@@ -1,9 +1,11 @@
 package beans;
 
 
+import lombok.Getter;
 import models.Role;
 import models.User;
 import models.service.UserService;
+import util.PasswordUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +29,7 @@ public class PasswordsBean {
     private User selectedUser = new User();
     private String myPasswd = "";
 
+    @Getter
     private User currentUser;
 
     @PostConstruct
@@ -37,9 +40,13 @@ public class PasswordsBean {
                         .getName()))
                 .findFirst()
                 .get();
+       if (!checkIfUserIsAdmin()) selectedUser = currentUser;
     }
 
 
+    public boolean checkIfUserIsAdmin () {
+        return currentUser.getRole().equals(Role.Manager);
+    }
     public User getSelectedUser() {
         return selectedUser;
     }
@@ -71,17 +78,11 @@ public class PasswordsBean {
     }
 
     public void update(){
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] passwordBytes = myPasswd.getBytes();
-        byte[] hash = md.digest(passwordBytes);
-        String encodedBytes = Base64.getEncoder().encodeToString(hash);
+
+        String encodedBytes = PasswordUtil.encode(myPasswd);
 
         if(encodedBytes.equals(currentUser.getPassword())){
+            selectedUser.setPassword(PasswordUtil.encode(selectedUser.getPassword()));
             userService.update(selectedUser);
 
         }

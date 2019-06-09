@@ -49,11 +49,7 @@ public class DashboardBean implements Serializable {
         else {
             //TODO showing zone for worker
         }
-//        zoneList = TestData.zoneList;
-//        val user = User.builder().build();
-//        val zone = Zone.builder().build();
-//        userService.create(user);
-//        zoneService.create(zone);
+
         return zoneList;
     }
 

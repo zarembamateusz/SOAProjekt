@@ -614,30 +614,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-    <deployments>
-        <deployment name="mysql-connector-java-5.1.47.jar" runtime-name="mysql-connector-java-5.1.47.jar">
-            <content sha1="3b9377170e244d39019b539e263c867d25952577"/>
-        </deployment>
-        <deployment name="simulation_mock_module_war_exploded5" runtime-name="simulation_mock_module_war_exploded5.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\simulation_mock_module_war_exploded5"/>
-        </deployment>
-        <deployment name="simulation_mock_module_war_exploded" runtime-name="simulation_mock_module_war_exploded.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\simulation_mock_module_war_exploded"/>
-        </deployment>
-        <deployment name="client_war_exploded" runtime-name="client_war_exploded.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\client_war_exploded"/>
-        </deployment>
-        <deployment name="implementation.jar" runtime-name="implementation.jar">
-            <fs-archive path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\implementation_jar\implementation.jar"/>
-        </deployment>
-        <deployment name="simulation_mock_module_war_exploded2" runtime-name="simulation_mock_module_war_exploded2.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\out\artifacts\simulation_mock_module_war_exploded2"/>
-        </deployment>
-        <deployment name="implementation-1.0-SNAPSHOT" runtime-name="implementation-1.0-SNAPSHOT.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\main_module\implementation\target\implementation-1.0-SNAPSHOT"/>
-        </deployment>
-        <deployment name="client-1.0-SNAPSHOT" runtime-name="client-1.0-SNAPSHOT.war">
-            <fs-exploded path="C:\Users\Mateusz\Desktop\Workspace\Java\Projekt\SOAProjekt\main_module\client\target\client-1.0-SNAPSHOT"/>
-        </deployment>
-    </deployments>
 </server>

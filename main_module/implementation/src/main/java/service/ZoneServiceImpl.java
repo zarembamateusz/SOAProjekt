@@ -14,6 +14,7 @@ import models.Ticket;
 import models.User;
 import models.Zone;
 import models.service.ZoneService;
+import org.jboss.annotation.security.SecurityDomain;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.LocalBean;
@@ -32,6 +33,7 @@ import java.util.stream.Stream;
 @Stateless
 @NoArgsConstructor
 @PermitAll
+@SecurityDomain("test-policy")
 public class ZoneServiceImpl implements ZoneService, Serializable {
 
     private final UserDao userDao = UserDao.create();

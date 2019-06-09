@@ -9,7 +9,9 @@ import models.service.UserService;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,11 @@ public class UserBean implements Serializable {
     }
 
     public List<User> getWorkers() {
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+
+        if (userService == null) {
+            System.out.println("");
+        }
         return userService.getWorkers();
     }
 

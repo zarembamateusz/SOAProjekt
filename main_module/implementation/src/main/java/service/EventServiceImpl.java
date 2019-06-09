@@ -8,6 +8,7 @@ import jms.Event;
 import models.service.EventService;
 import lombok.val;
 import mappers.EventMapper;
+import org.jboss.annotation.security.SecurityDomain;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.Remote;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 @Remote(EventService.class)
 @Stateless
 @PermitAll
+@SecurityDomain("test-policy")
+
 public class EventServiceImpl implements EventService, Serializable {
 
     private final ZoneDao zoneDao = ZoneDao.create();

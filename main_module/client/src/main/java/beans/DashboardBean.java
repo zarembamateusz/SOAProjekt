@@ -1,5 +1,6 @@
 package beans;
 
+import lombok.val;
 import models.CarPlace;
 import models.Role;
 import models.User;
@@ -7,6 +8,7 @@ import models.Zone;
 import models.service.UserService;
 import models.service.ZoneService;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,25 +24,27 @@ import java.util.List;
 @SessionScoped
 public class DashboardBean implements Serializable {
 
+    private User currentUser;
 
-   public DashboardBean(){
-        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-//           List<User> c = userService.getAll();
+    @PostConstruct
+    public void init() {
+        val principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        currentUser = userService.getAll().stream()
+                .filter(user -> user.getLogin().equals(principal.getName()))
+                .findFirst()
+                .get();
     }
+
     //TODO delete test data and configure other data source
     private List<Zone> zoneList = new ArrayList<Zone>();
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/ZoneServiceImpl!models.service.ZoneService")
     private ZoneService zoneService;
-    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/UserServiceImpl!models.service.UserService" )
+    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/UserServiceImpl!models.service.UserService")
     private UserService userService;
 
-    private User currentUser = userService.getAll().stream()
-            .filter(user -> user.getLogin().equals(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName()))
-            .findFirst()
-            .get();
 
     public List<Zone> getZoneList() {
-        if(currentUser.getRole()==Role.MANAGER)
+        if (currentUser.getRole() == Role.Manager)
             zoneList = zoneService.getAll();
         else {
             //TODO showing zone for worker
@@ -54,7 +58,7 @@ public class DashboardBean implements Serializable {
     }
 
 
-    public long getNumberOfBuyTicket(String id){
+    public long getNumberOfBuyTicket(String id) {
         return zoneList.stream()
                 .filter(zone -> zone.getId().equals(id))
                 .map(Zone::getPlaces)

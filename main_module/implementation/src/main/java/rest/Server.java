@@ -1,18 +1,10 @@
-package api.rest;
+package rest;
 
-import api.rest.controller.EventController;
-import api.rest.controller.ZoneController;
-import models.CarPlace;
-import models.Zone;
-import models.service.ZoneService;
+import rest.controller.EventController;
+import rest.controller.ZoneController;
 
-import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

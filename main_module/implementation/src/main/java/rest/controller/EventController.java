@@ -1,9 +1,8 @@
-package api.rest.controller;
+package rest.controller;
 
 import jms.Event;
-import models.service.EventService;
+import service.EventServiceImpl;
 
-import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 @Path("/events")
 public class EventController {
 
-    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/EventServiceImpl!models.service.EventService")
-    private EventService eventService;
+//    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/EventServiceImpl!models.service.EventService")
+    private EventServiceImpl eventService = new EventServiceImpl();
 
     @Path("")
     @GET

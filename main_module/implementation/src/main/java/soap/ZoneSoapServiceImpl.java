@@ -1,4 +1,4 @@
-package api.soap;
+package soap;
 
 import jms.Event;
 import jms.service.JMSService;
@@ -10,7 +10,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "api.soap.ZoneSoapService")
+@WebService(endpointInterface = "soap.ZoneSoapService")
 public class ZoneSoapServiceImpl implements ZoneSoapService {
 
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/ZoneServiceImpl!models.service.ZoneService")

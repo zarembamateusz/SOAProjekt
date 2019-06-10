@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+   <h:form>
+      <p:commandButton action="#{AlertBean.logout}" value="Wyloguj"  ajax="false"/>
+   </h:form>
+   <h:form id="form">
+   <h:outputLabel value="Twoje powiadomienia"/>
+
+   <p:dataTable id="multichooser" var="event" value="#{AlertBean.eventList}" widgetVar="eventTable" rowKey="#{event.id}"
+                emptyMessage="Brak alertów" filteredValue="#{AlertBean.filtredEventList}" >
+
+      <p:column headerText="Id strefy: " style="width:100px;" >
+         <h:outputText value="#{event.zoneId}" />
+      </p:column>
+
+      <p:column headerText="Id czujnika: " style="width:100px;" >
+         <h:outputText value="#{event.carPlaceId}" />
+      </p:column>
+
+      <p:column filterBy="#{event.type}" headerText="Typ: " footerText="" filterMatchMode="in" style="width:70px;">
+         <f:facet name="filter">
+            <p:selectCheckboxMenu label="Typy" onchange="PF('eventTable').filter()" scrollHeight="150" styleClass="custom-filter">
+               <f:selectItems value="#{AlertBean.eventTypes}" />
+            </p:selectCheckboxMenu>
+         </f:facet>
+         <h:outputText value="#{event.type}" />
+      </p:column>
+
+      <p:column headerText="Opis alertu: " style="width:200px;" >
+         <h:outputText value="#{event.description}" />
+      </p:column>
+
+      <!--<f:facet name="footer">-->
+        <!---->
+      <!--</f:facet>-->
+
+   </p:dataTable>
+   <!--<p:poll interval="3" update="form" listener="#{AlertBean.getEventList()}"/>-->
+   </h:form>
+</h:body>
+
+</html>

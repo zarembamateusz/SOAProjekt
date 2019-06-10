@@ -1,6 +1,7 @@
 package beans;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.val;
 import models.CarPlace;
 import models.Role;
@@ -15,7 +16,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -25,7 +29,21 @@ import java.util.stream.Collectors;
 public class DashboardBean implements Serializable {
 
     private User currentUser;
+    @Getter
+    private List<String> carPlaceType = new ArrayList<String>(){{
+        add("WOLNE");
+        add("ZAJETE");
+    }};
+    @Getter
+    @Setter
+    private List<CarPlace> carPlacesFiltred = new ArrayList<>();
 
+    public List<String> getAvailableZone() {
+        getCarPlaces();
+        return availableZone;
+    }
+
+    private List<String> availableZone = new ArrayList<String>();
 
     @Getter
     private Map<CarPlace,String>  carPlaceMap = new HashMap<>();
@@ -38,7 +56,6 @@ public class DashboardBean implements Serializable {
                 .get();
     }
 
-    //TODO delete test data and configure other data source
     private List<CarPlace> carPlaces = new ArrayList<CarPlace>();
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/ZoneServiceImpl!models.service.ZoneService")
     private ZoneService zoneService;
@@ -47,14 +64,15 @@ public class DashboardBean implements Serializable {
 
 
     public List<CarPlace> getCarPlaces() {
+        carPlaces = new ArrayList<>();
+        carPlaceMap.clear();
         if (currentUser.getRole() == Role.Manager) {
             for(Zone z : zoneService.getAll()){
                 for (CarPlace cp : z.getPlaces()) {
                     carPlaceMap.put(cp, z.getCode());
                     carPlaces.add(cp);
-
                 }
-
+                availableZone.add(z.getCode());
             }
         }else {
             for(Zone z : currentUser.getZones().stream().map(zoneService::findById)
@@ -63,7 +81,7 @@ public class DashboardBean implements Serializable {
                     carPlaceMap.put(cp, z.getCode());
                     carPlaces.add(cp);
                 }
-
+                availableZone.add(z.getCode());
             }
         }
 
@@ -72,7 +90,7 @@ public class DashboardBean implements Serializable {
 
     public String getCarPlaceStatus(CarPlace carPlace){
         if(carPlace.getStatus() == 1)
-            return "ZAJĘTE";
+            return "ZAJETE";
         else
             return "WOLNE";
 
@@ -84,7 +102,6 @@ public class DashboardBean implements Serializable {
         else
             return "Brak biletu";
     }
-
 
 
 

@@ -1,5 +1,6 @@
 package api.rest;
 
+import api.rest.controller.EventController;
 import api.rest.controller.ZoneController;
 import models.CarPlace;
 import models.Zone;
@@ -21,7 +22,7 @@ public class Server extends Application {
     @Override
     public Set<Class<?>> getClasses() {
 
-        return Stream.of(ZoneController.class)
+        return Stream.of(ZoneController.class, EventController.class)
                 .collect(Collectors.toSet());
     }
 }

@@ -1,6 +1,7 @@
 package jms;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class Event implements Serializable {
     private String carPlaceId;
     private EventType type;
     private String description;
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm")
     private LocalDateTime timeOfCreated = LocalDateTime.now();
 
 }

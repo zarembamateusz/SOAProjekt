@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Stateless
 @PermitAll
 @SecurityDomain("test-policy")
-
 public class EventServiceImpl implements EventService, Serializable {
 
     private final ZoneDao zoneDao = ZoneDao.create();

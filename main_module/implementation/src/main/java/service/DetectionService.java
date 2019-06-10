@@ -44,17 +44,17 @@ public class DetectionService {
 
     @Schedule(minute = "*/1", hour = "*", persistent = false)
     private void checkIfTicketWasBought() {
-//        eventDao.getAll()
-//                .stream()
-//                .peek(logger::info)
-//                .filter(eventEntity -> eventEntity.getType().equals(EventType.CAR_IN))
-//                .peek(logger::info)
-//                .filter(eventEntity -> eventEntity.getTimeOfCreated().isBefore(LocalDateTime.now().minusMinutes(2)))
-//                .peek(logger::info)
-//                .filter(eventEntity -> !zoneService.getByCarId(eventEntity.getCarPlaceId()).haveTicket())
-//                .peek(eventEntity -> eventEntity.setType(EventType.TICKET_NOT_BOUGHT))
-//                .peek(logger::info)
-//                .forEach(eventDao::update);
+        eventDao.getAll()
+                .stream()
+                .peek(logger::info)
+                .filter(eventEntity -> eventEntity.getType().equals(EventType.CAR_IN))
+                .peek(logger::info)
+                .filter(eventEntity -> eventEntity.getTimeOfCreated().isBefore(LocalDateTime.now().minusMinutes(2)))
+                .peek(logger::info)
+                .filter(eventEntity -> !zoneService.getByCarId(eventEntity.getCarPlaceId()).haveTicket())
+                .peek(eventEntity -> eventEntity.setType(EventType.TICKET_NOT_BOUGHT))
+                .peek(logger::info)
+                .forEach(eventDao::update);
     }
 
 
@@ -63,24 +63,24 @@ public class DetectionService {
 
         userService.getAll()
                 .forEach(logger::info);
-//        zoneService.getAll()
-//                .stream()
-//                .map(zone -> new Tuple3<>(zone.getWorkers(), zone.getPlaces().stream()
-//                        .filter(CarPlace::isTicketExpired)
-//                        .map(CarPlace::getId)
-//                        .collect(Collectors.toSet())
-//                ,zone.getId()))
-//                .map(t -> t._1.stream()
-//                        .map(user -> t._2.stream()
-//                                .map(place -> createEvent(user, place,t._3))
-//                                .collect(Collectors.toSet()))
-//                        .collect(Collectors.toSet()))
-//                .peek(e-> logger.info(" expired " + e))
-//                .flatMap(Collection::stream)
-//                .flatMap(Collection::stream)
-//                .peek(eventEntity -> eventDao.deleteByCarPlaceId(eventEntity.getCarPlaceId()))
-//                .peek(logger::info)
-//                .forEach(eventDao::create);
+        zoneService.getAll()
+                .stream()
+                .map(zone -> new Tuple3<>(zone.getWorkers(), zone.getPlaces().stream()
+                        .filter(CarPlace::isTicketExpired)
+                        .map(CarPlace::getId)
+                        .collect(Collectors.toSet())
+                ,zone.getId()))
+                .map(t -> t._1.stream()
+                        .map(user -> t._2.stream()
+                                .map(place -> createEvent(user, place,t._3))
+                                .collect(Collectors.toSet()))
+                        .collect(Collectors.toSet()))
+                .peek(e-> logger.info(" expired " + e))
+                .flatMap(Collection::stream)
+                .flatMap(Collection::stream)
+                .peek(eventEntity -> eventDao.deleteByCarPlaceId(eventEntity.getCarPlaceId()))
+                .peek(logger::info)
+                .forEach(eventDao::create);
     }
 
     private EventEntity createEvent(final String user, final String carPlace, final String zoneId) {
@@ -88,6 +88,7 @@ public class DetectionService {
                 .userId(user)
                 .type(EventType.TICKET_EXPIRED)
                 .carPlaceId(carPlace)
+                .timeOfCreated(LocalDateTime.now())
                 .zoneId(zoneId)
                 .id(UUID.randomUUID().toString())
                 .build();

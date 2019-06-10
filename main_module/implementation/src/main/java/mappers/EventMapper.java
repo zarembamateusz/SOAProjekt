@@ -15,6 +15,7 @@ public class EventMapper {
                 .type(eventEntity.getType())
                 .zoneId(eventEntity.getZoneId())
                 .id(eventEntity.getId())
+                .timeOfCreated(eventEntity.getTimeOfCreated())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class EventMapper {
                 .description(event.getDescription())
                 .carPlaceId(event.getCarPlaceId())
                 .zoneId(event.getZoneId())
+                .timeOfCreated(event.getTimeOfCreated())
                 .userId(userId)
                 .type(event.getType())
                 .build();

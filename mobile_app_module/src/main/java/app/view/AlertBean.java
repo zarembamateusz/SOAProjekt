@@ -3,10 +3,12 @@ package app.view;
 import jms.Event;
 import jms.EventType;
 import models.service.EventService;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.ws.rs.core.UriBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,11 +18,13 @@ import java.util.List;
 public class AlertBean {
 
 
-    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/EventServiceImpl!models.service.EventService")
-    private EventService eventService;
-    private List<Event> eventList = new ArrayList<>();
+    private final String path = "http://127.0.0.1:8080/api/rest";
+
+    private final RestService client = new ResteasyClientBuilder().build()
+            .target(UriBuilder.fromPath(path))
+            .proxy(RestService.class);
     private List<Event> filtredEventList = new ArrayList<>();
-    private List<EventType> eventTypes =new ArrayList<EventType>(Arrays.asList(EventType.values()));
+    private List<EventType> eventTypes = new ArrayList<EventType>(Arrays.asList(EventType.values()));
 
 
     public List<EventType> getEventTypes() {
@@ -39,11 +43,7 @@ public class AlertBean {
 
     public List<Event> getEventList() {
         // tylko do testów
-        return eventService.getAll();
-    }
-
-    public void setEventList(List<Event> eventList) {
-        this.eventList = eventList;
+        return client.getAll();
     }
 
 }

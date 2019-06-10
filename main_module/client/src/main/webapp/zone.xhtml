@@ -43,7 +43,7 @@
             <h:selectManyMenu id="userInput" value="#{ZoneBean.users}"
                               var="t"
                               converter="userConverter">
-                <f:selectItems value="#{UserBean.getWorkers()}" var="worker" itemLabel="#{worker}"
+                <f:selectItems value="#{UserBean.getWorkers()}" var="worker" itemLabel="#{worker.fistName} #{worker.lastName}"
                                itemValue="#{worker}"/>
             </h:selectManyMenu><br/>
             <h:outputLabel for="placeNumberInput" value="Liczba miejsc"/>

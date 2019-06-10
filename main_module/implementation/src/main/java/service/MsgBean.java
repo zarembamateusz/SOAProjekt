@@ -1,11 +1,13 @@
-package app;
+package service;
 
 import jms.Event;
 import jms.EventType;
 import lombok.val;
 import models.service.EventService;
 import models.service.UserService;
+import org.jboss.annotation.security.SecurityDomain;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -19,13 +21,12 @@ import java.util.stream.Stream;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
         @ActivationConfigProperty(propertyName = "subscriptionDurability",
                 propertyValue = "durable")})
+@PermitAll
+@SecurityDomain("test-policy")
 public class MsgBean implements MessageListener {
 
 
-    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/EventServiceImpl!models.service.EventService")
-    private EventService eventService;
-    @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/UserServiceImpl!models.service.UserService")
-    private UserService userService;
+    private EventService eventService = new EventServiceImpl();
 
     public void onMessage(Message message) {
         if (message instanceof ObjectMessage) {

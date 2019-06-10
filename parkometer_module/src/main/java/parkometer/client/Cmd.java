@@ -5,7 +5,6 @@ import lombok.val;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ws.rs.core.UriBuilder;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +14,7 @@ import static java.lang.System.out;
 
 @NoArgsConstructor(staticName = "create")
 public class Cmd {
-    private final String path = "http://127.0.0.1:8080/api/rest";
+    private final String path = "http://127.0.0.1:8080/implementation/api/rest";
 
     private final RestService client = new ResteasyClientBuilder().build()
             .target(UriBuilder.fromPath(path))

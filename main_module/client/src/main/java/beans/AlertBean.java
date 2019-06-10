@@ -17,7 +17,7 @@ import java.util.List;
 public class AlertBean {
 
 
-    private final String path = "http://127.0.0.1:8080/api/rest";
+    private final String path = "http://127.0.0.1:8080/implementation/api/rest";
 
     private final RestService client = new ResteasyClientBuilder().build()
             .target(UriBuilder.fromPath(path))

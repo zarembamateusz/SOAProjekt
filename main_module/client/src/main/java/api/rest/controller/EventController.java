@@ -1,15 +1,10 @@
 package api.rest.controller;
 
 import jms.Event;
-import models.Zone;
 import models.service.EventService;
-import models.service.ZoneService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -31,7 +26,7 @@ public class EventController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> getAllClientEvents(String id) {
+    public List<Event> getAllClientEvents(@PathParam("id") String id) {
         return eventService.findAllUsersEvent(id);
     }
 }

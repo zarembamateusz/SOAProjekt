@@ -2,8 +2,6 @@ package app.view;
 
 
 import jms.Event;
-import models.CarPlace;
-import models.Zone;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,9 +16,9 @@ public interface RestService {
     @Produces(MediaType.APPLICATION_JSON)
     List<Event> getAll();
 
-    @Path("/{id}")
+    @Path("events/{id}")
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    List<Event> getAllClientEvents(String id);
+    List<Event> getAllClientEvents(@PathParam("id") String id);
 }

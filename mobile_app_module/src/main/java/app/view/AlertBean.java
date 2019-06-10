@@ -2,12 +2,11 @@ package app.view;
 
 import jms.Event;
 import jms.EventType;
-import models.service.EventService;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.core.UriBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +43,10 @@ public class AlertBean {
     public List<Event> getEventList() {
         // tylko do testów
         return client.getAllClientEvents("1");
+    }
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "alert.xhtml";
     }
 
 }

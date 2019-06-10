@@ -1,4 +1,4 @@
-package soap;
+package api.soap;
 
 import jms.Event;
 import models.Zone;

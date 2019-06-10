@@ -55,7 +55,7 @@
             </p:selectOneRadio>
             <h:outputLabel for="zoneInput" value="Strefa "/>
             <h:selectOneMenu id="zoneInput" value="#{zone}" converter="zoneConverter" disabled="#{role =='ADMIN'}">
-                <f:selectItems value="#{ZoneBean.getAllZones()}" var="zzone" itemValue="#{zzone}" itemLabel="#{zzone.getId()}"/>
+                <f:selectItems value="#{ZoneBean.getAllZones()}" var="zzone" itemValue="#{zzone}" itemLabel="#{zzone.getCode()}"/>
             </h:selectOneMenu>
             <h:commandButton value="Dodaj" action="#{UserBean.createUser(login,password,name, lastname, role, zone)}"/>
         </h:form>

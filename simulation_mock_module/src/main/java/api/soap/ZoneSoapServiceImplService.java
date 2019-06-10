@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ZoneSoapServiceImplService", targetNamespace = "http://soap.api/", wsdlLocation = "http://localhost:8080/ZoneSoapServiceImpl?wsdl")
+@WebServiceClient(name = "ZoneSoapServiceImplService", targetNamespace = "http://soap.api/", wsdlLocation = "http://localhost:8080/implementation/ZoneSoapServiceImpl?wsdl")
 public class ZoneSoapServiceImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class ZoneSoapServiceImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8080/ZoneSoapServiceImpl?wsdl");
+            url = new URL("http://localhost:8080/implementation/ZoneSoapServiceImpl?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

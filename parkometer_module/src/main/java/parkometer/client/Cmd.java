@@ -39,13 +39,13 @@ public class Cmd {
         out.println("Witamy w smart parkingu");
         out.println("Wybierz swoją zone");
         val zones = client.getAllZones();
-        zones.forEach(z -> out.println("\t -  " + z.getId()));
-        val zoneId = scanner.next();
-        out.println("Wybrano " + zoneId);
+        zones.forEach(z -> out.println("\t -  " + z.getCode()));
+        val code = scanner.next();
+        out.println("Wybrano " + code);
 
         out.println("Wybierz miejsce");
         val zone = zones.stream()
-                .filter(z -> z.getId().equals(zoneId))
+                .filter(z -> z.getCode().equals(code))
                 .findFirst()
                 .get();
         zone.getPlaces()
@@ -57,7 +57,7 @@ public class Cmd {
         val time = map.get(scanner.nextInt());
         val endTime = ZonedDateTime.now().plusSeconds(time);
 
-        client.putNewTicket(zoneId, placeId, endTime.toLocalDateTime().toString());
+        client.putNewTicket(zone.getId(), placeId, endTime.toLocalDateTime().toString());
 
     }
 

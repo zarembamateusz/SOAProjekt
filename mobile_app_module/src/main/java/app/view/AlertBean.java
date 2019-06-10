@@ -2,8 +2,11 @@ package app.view;
 
 import jms.Event;
 import jms.EventType;
+import lombok.val;
+import models.User;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -17,7 +20,7 @@ import java.util.List;
 public class AlertBean {
 
 
-    private final String path = "http://127.0.0.1:8080/api/rest";
+    private final String path = "http://127.0.0.1:8080/implementation/api/rest/";
 
     private final RestService client = new ResteasyClientBuilder().build()
             .target(UriBuilder.fromPath(path))
@@ -39,10 +42,16 @@ public class AlertBean {
         this.filtredEventList = filtredEventList;
     }
 
+    private User user;
 
+    @PostConstruct
+    public void init() {
+        val login = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        user = client.getUserByLogin(login);
+    }
     public List<Event> getEventList() {
         // tylko do testów
-        return client.getAllClientEvents("1");
+        return client.getAllClientEvents(user.getId());
     }
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="CAR_IN"/>
  *     &lt;enumeration value="CAR_OUT"/>
  *     &lt;enumeration value="TICKET_EXPIRED"/>
+ *     &lt;enumeration value="TICKET_NOT_BOUGHT"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -27,7 +28,8 @@ public enum EventType {
 
     CAR_IN,
     CAR_OUT,
-    TICKET_EXPIRED;
+    TICKET_EXPIRED,
+    TICKET_NOT_BOUGHT;
 
     public String value() {
         return name();

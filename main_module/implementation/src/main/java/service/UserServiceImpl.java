@@ -114,6 +114,11 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public User getByLogin(final String login) {
+        return  UserMapper.toDto(userDao.findByLogin(login));
+    }
+
 
     @Override
     public void createUser(final String login, final String password, final String name,

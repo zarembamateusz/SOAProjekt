@@ -27,6 +27,14 @@ public class UserDao extends GenericDao<UserEntity, String> {
         em.getTransaction().commit();
         return userEntity;
     }
+    public UserEntity findByLogin(String login) {
+        em.getTransaction().begin();
+        val userEntity = em.createQuery("SELECT b from UserEntity b where b.login = :login", UserEntity.class)
+                .setParameter("login", login)
+                .getSingleResult();
+        em.getTransaction().commit();
+        return userEntity;
+    }
 
     @Override
     public List<UserEntity> getAll() {

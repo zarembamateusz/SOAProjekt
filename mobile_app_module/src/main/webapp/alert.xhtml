@@ -19,11 +19,11 @@
                 emptyMessage="Brak alertów" filteredValue="#{AlertBean.filtredEventList}" >
 
       <p:column headerText="Id strefy: " style="width:100px;" >
-         <h:outputText value="#{event.zoneId}" />
+         <h:outputText value="#{event.zoneCode}" />
       </p:column>
 
       <p:column headerText="Id czujnika: " style="width:100px;" >
-         <h:outputText value="#{event.carPlaceId}" />
+         <h:outputText value="#{event.carCode}" />
       </p:column>
 
       <p:column filterBy="#{event.type}" headerText="Typ: " footerText="" filterMatchMode="in" style="width:70px;">

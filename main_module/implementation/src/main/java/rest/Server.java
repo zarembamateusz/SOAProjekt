@@ -1,6 +1,7 @@
 package rest;
 
 import rest.controller.EventController;
+import rest.controller.UserController;
 import rest.controller.ZoneController;
 
 import javax.ws.rs.*;
@@ -14,7 +15,9 @@ public class Server extends Application {
     @Override
     public Set<Class<?>> getClasses() {
 
-        return Stream.of(ZoneController.class, EventController.class)
+        return Stream.of(ZoneController.class,
+                EventController.class,
+                UserController.class)
                 .collect(Collectors.toSet());
     }
 }

@@ -22,6 +22,8 @@ public class EventEntity {
     private String description;
     private String userId;
     private String zoneId;
+    private String carCode;
+    private String zoneCode;
     @Builder.Default
     private LocalDateTime timeOfCreated = LocalDateTime.now();
 }

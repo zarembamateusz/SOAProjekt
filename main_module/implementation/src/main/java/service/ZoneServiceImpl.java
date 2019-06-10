@@ -136,6 +136,7 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .map(i -> CarPlace.builder()
                         .id(UUID.randomUUID()
                                 .toString())
+                        .code(i.toString())
                         .build()
                 ).collect(Collectors.toSet());
     }

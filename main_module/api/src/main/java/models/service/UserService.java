@@ -14,6 +14,8 @@ public interface UserService extends GenericService<User, String> {
 
     List<User> getWorkers();
 
+    User getByLogin(String login);
+
     void createUser(final String login, final String password, final String name,
                     final String lastName, final Role role, final String zoneId);
 }

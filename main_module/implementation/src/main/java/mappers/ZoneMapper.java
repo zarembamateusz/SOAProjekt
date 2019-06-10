@@ -32,13 +32,13 @@ public class ZoneMapper {
 
 
     private CarPlaceEntity toCarPlaceEntity(final CarPlace place, final ZoneEntity zoneEntity) {
-        val entity =  CarPlaceEntity.builder()
+        val entity = CarPlaceEntity.builder()
                 .id(EntityUtill.extractId(place::getId))
                 .zone(zoneEntity)
                 .status(place.getStatus())
                 .code(place.getCode())
                 .build();
-        val ticket = toTicketEntity(entity,place.getCurrentTicket());
+        val ticket = toTicketEntity(entity, place.getCurrentTicket());
         entity.setTicketEntity(ticket);
         return entity;
     }
@@ -46,10 +46,11 @@ public class ZoneMapper {
     private TicketEntity toTicketEntity(final CarPlaceEntity entity, final Ticket ticket) {
         if (ticket == null) return null;
         return TicketEntity.builder()
-                    .id(EntityUtill.extractId(ticket::getId))
-                    .endTime(ticket.getEndTime())
-                    .startTime(ticket.getStartTime())
-                    .build();
+                .id(EntityUtill.extractId(ticket::getId))
+                .endTime(ticket.getEndTime())
+                .startTime(ticket.getStartTime())
+                .carPlace(entity)
+                .build();
     }
 
     public Zone toDto(final ZoneEntity entity) {

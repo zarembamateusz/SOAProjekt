@@ -16,6 +16,8 @@ public class EventMapper {
                 .zoneId(eventEntity.getZoneId())
                 .id(eventEntity.getId())
                 .timeOfCreated(eventEntity.getTimeOfCreated())
+                .carCode(eventEntity.getCarCode())
+                .zoneCode(eventEntity.getZoneCode())
                 .build();
     }
 
@@ -28,6 +30,8 @@ public class EventMapper {
                 .zoneId(event.getZoneId())
                 .timeOfCreated(event.getTimeOfCreated())
                 .userId(userId)
+                .carCode(event.getCarCode())
+                .zoneCode(event.getZoneCode())
                 .type(event.getType())
                 .build();
     }

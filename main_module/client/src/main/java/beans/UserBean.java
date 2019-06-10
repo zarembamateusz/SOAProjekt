@@ -17,6 +17,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+import static models.Role.*;
+
 @ManagedBean(name = "UserBean")
 @SessionScoped
 public class UserBean implements Serializable {
@@ -49,7 +51,7 @@ public class UserBean implements Serializable {
                            final String lastName, final String role, final Zone zone) {
 
 
-        userService.createUser(login, password, name, lastName, Role.valueOf(role), Optional.ofNullable(zone)
+        userService.createUser(login, password, name, lastName,role.equals("ADMIN")? Manager : WORKER, Optional.ofNullable(zone)
                 .map(Zone::getId)
                 .orElse(null));
     }

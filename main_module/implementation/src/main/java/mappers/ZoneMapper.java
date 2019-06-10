@@ -35,7 +35,7 @@ public class ZoneMapper {
         val entity =  CarPlaceEntity.builder()
                 .id(EntityUtill.extractId(place::getId))
                 .zone(zoneEntity)
-                .free(place.getFree())
+                .status(place.getStatus())
                 .code(place.getCode())
                 .build();
         val ticket = toTicketEntity(entity,place.getCurrentTicket());
@@ -66,7 +66,7 @@ public class ZoneMapper {
         return CarPlace.builder()
                 .id(entity.getId())
                 .currentTicket(toTicket(entity.getTicketEntity()))
-                .free(entity.getFree())
+                .status(entity.getStatus())
                 .code(entity.getCode())
                 .build();
     }

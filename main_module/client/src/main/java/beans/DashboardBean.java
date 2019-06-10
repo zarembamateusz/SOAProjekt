@@ -71,11 +71,11 @@ public class DashboardBean implements Serializable {
     }
 
     public String getCarPlaceStatus(CarPlace carPlace){
-        //TODO Dodać obsługe stanu miejsca
-        if(carPlace.getCurrentTicket()!= null)
-            return "";
+        if(carPlace.getStatus() == 1)
+            return "ZAJĘTE";
         else
-            return "";
+            return "WOLNE";
+
     }
 
     public String getExpiringTime(CarPlace carPlace){

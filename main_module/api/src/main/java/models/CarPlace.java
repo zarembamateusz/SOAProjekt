@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class CarPlace implements Serializable {
     private String id;
     private Ticket currentTicket;
-    private int free;
+    private int status;
     private String code;
 
     @JsonIgnore

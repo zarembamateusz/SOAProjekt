@@ -24,4 +24,7 @@ public class CarPlaceEntity {
     @JoinColumn(name = "zone_id")
     private ZoneEntity zone;
 
+    private int free;
+    private String code;
+
 }

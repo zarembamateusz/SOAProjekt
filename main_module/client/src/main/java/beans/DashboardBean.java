@@ -1,5 +1,6 @@
 package beans;
 
+import lombok.Getter;
 import lombok.val;
 import models.CarPlace;
 import models.Role;
@@ -14,9 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -27,6 +26,9 @@ public class DashboardBean implements Serializable {
 
     private User currentUser;
 
+
+    @Getter
+    private Map<CarPlace,String>  carPlaceMap = new HashMap<>();
     @PostConstruct
     public void init() {
         val principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -37,37 +39,54 @@ public class DashboardBean implements Serializable {
     }
 
     //TODO delete test data and configure other data source
-    private List<Zone> zoneList = new ArrayList<Zone>();
+    private List<CarPlace> carPlaces = new ArrayList<CarPlace>();
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/ZoneServiceImpl!models.service.ZoneService")
     private ZoneService zoneService;
     @EJB(lookup = "java:global/implementation-1.0-SNAPSHOT/UserServiceImpl!models.service.UserService")
     private UserService userService;
 
 
-    public List<Zone> getZoneList() {
-        if (currentUser.getRole() == Role.Manager)
-            zoneList = zoneService.getAll();
-        else {
-            zoneList = currentUser.getZones().stream().map(zoneService::findById)
-                    .collect(Collectors.toList());
+    public List<CarPlace> getCarPlaces() {
+        if (currentUser.getRole() == Role.Manager) {
+            for(Zone z : zoneService.getAll()){
+                for (CarPlace cp : z.getPlaces()) {
+                    carPlaceMap.put(cp, z.getCode());
+                    carPlaces.add(cp);
+
+                }
+
+            }
+        }else {
+            for(Zone z : currentUser.getZones().stream().map(zoneService::findById)
+                    .collect(Collectors.toList())){
+                for (CarPlace cp : z.getPlaces()) {
+                    carPlaceMap.put(cp, z.getCode());
+                    carPlaces.add(cp);
+                }
+
+            }
         }
 
-        return zoneList;
+        return carPlaces;
+    }
+
+    public String getCarPlaceStatus(CarPlace carPlace){
+        //TODO Dodać obsługe stanu miejsca
+        if(carPlace.getCurrentTicket()!= null)
+            return "";
+        else
+            return "";
+    }
+
+    public String getExpiringTime(CarPlace carPlace){
+        if(carPlace.haveTicket())
+            return carPlace.getCurrentTicket().getEndTime().toString();
+        else
+            return "Brak biletu";
     }
 
 
-    public long getNumberOfBuyTicket(String id) {
-        return zoneList.stream()
-                .filter(zone -> zone.getId().equals(id))
-                .map(Zone::getPlaces)
-                .flatMap(Collection::stream)
-                .filter(CarPlace::haveTicket)
-                .count();
-    }
 
-    public void setZoneList(List<Zone> zoneList) {
-        this.zoneList = zoneList;
-    }
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

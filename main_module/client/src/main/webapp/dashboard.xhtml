@@ -17,20 +17,26 @@
     </h:form>
 
     <h:form id="zoneInfo">
-        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}"
+        <p:dataTable id="multichooser" var="carPlace" value="#{DashboardBean.carPlaces}"
                      emptyMessage="Nie można załadować danych o strefach !">
 
             <p:column headerText="Id strefy" style="width:140px;">
-                <h:outputText value="#{zone.id}"/>
+                <h:outputText value="#{DashboardBean.carPlaceMap.get(carPlace)}"/>
             </p:column>
 
-            <p:column headerText="Liczba zajętych miejsc" style="width:140px;">
-                <h:outputText value="#{zone.getPlaces().size()}"/>
+            <p:column headerText="Id miejsca" style="width:140px;">
+                <h:outputText value="#{carPlace.id}"/>
             </p:column>
 
-            <p:column headerText="Aktualnie zakupione bilety" style="width:140px;">
-                    <h:outputText value="#{DashboardBean.getNumberOfBuyTicket(zone.id)}"/>
+            <p:column headerText="Status miejsca" style="width:140px;">
+                <h:outputText value="#{DashboardBean.getCarPlaceStatus(carPlace)}"/>
             </p:column>
+
+            <p:column headerText="Czas ważności biletu" style="width:140px;">
+                <h:outputText value="#{DashboardBean.getExpiringTime(carPlace)}"/>
+            </p:column>
+
+
 
         </p:dataTable>
     </h:form>

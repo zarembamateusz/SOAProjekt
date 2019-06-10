@@ -15,6 +15,8 @@ import java.io.Serializable;
 public class CarPlace implements Serializable {
     private String id;
     private Ticket currentTicket;
+    private int free;
+    private String code;
 
     @JsonIgnore
     public Boolean isTicketExpired() {

@@ -26,4 +26,12 @@ public class EventController {
     public List<Event> getAllZones() {
         return eventService.getAll();
     }
+
+    @Path("/{id}")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Event> getAllClientEvents(String id) {
+        return eventService.findAllUsersEvent(id);
+    }
 }

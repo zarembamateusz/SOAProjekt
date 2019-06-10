@@ -18,4 +18,9 @@ public interface RestService {
     @Produces(MediaType.APPLICATION_JSON)
     List<Event> getAll();
 
+    @Path("/{id}")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    List<Event> getAllClientEvents(String id);
 }

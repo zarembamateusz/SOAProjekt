@@ -43,7 +43,7 @@ public class AlertBean {
 
     public List<Event> getEventList() {
         // tylko do testów
-        return client.getAll();
+        return client.getAllClientEvents("1");
     }
 
 }

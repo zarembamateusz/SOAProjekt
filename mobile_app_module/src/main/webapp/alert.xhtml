@@ -9,7 +9,7 @@
 
 </h:head>
 <h:body>
-   <h:form>
+   <h:form id="form">
    <h:outputLabel value="Twoje powiadomienia"/>
 
    <p:dataTable id="multichooser" var="event" value="#{AlertBean.eventList}" widgetVar="eventTable" rowKey="#{event.id}"
@@ -41,7 +41,7 @@
       <!--</f:facet>-->
 
    </p:dataTable>
-   <p:poll interval="3" update="multichooser" listener="#{AlertBean.getEventList()}"/>
+   <p:poll interval="3" update="form" listener="#{AlertBean.getEventList()}"/>
    </h:form>
 </h:body>
 

@@ -50,6 +50,7 @@ public class DetectionService {
                             .type(EventType.NEED_TO_GO)
                             .description("Brak waznego biletu. Idz wystawic mandat !")
                             .build();
+                    eventService.carOut(event);
                     eventService.carIn(event);
                     topic.sendTopic(event);
                 }

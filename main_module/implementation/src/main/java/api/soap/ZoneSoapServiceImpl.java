@@ -8,7 +8,6 @@ import lombok.var;
 import models.CarPlace;
 import models.Zone;
 import models.service.ZoneService;
-import service.IntervalTaskManager;
 
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -35,7 +34,6 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
     @WebMethod
     @Override
     public void action(Event event) {
-        IntervalTaskManager.startIntervalTask();
         Zone zone = zoneService.findById(event.getZoneId());
         CarPlace carPlace = null;
         for(CarPlace cp :zone.getPlaces())

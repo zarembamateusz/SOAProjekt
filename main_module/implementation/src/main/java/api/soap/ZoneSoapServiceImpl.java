@@ -3,6 +3,8 @@ package api.soap;
 import jms.Event;
 import jms.EventType;
 import jms.service.JMSService;
+import lombok.val;
+import lombok.var;
 import models.CarPlace;
 import models.Zone;
 import models.service.ZoneService;
@@ -11,6 +13,8 @@ import service.IntervalTaskManager;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @WebService(endpointInterface = "api.soap.ZoneSoapService")
@@ -37,15 +41,20 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
         for(CarPlace cp :zone.getPlaces())
             if(cp.getId().equals(event.getCarPlaceId()))
                 carPlace = cp;
+
+
         if(carPlace == null) return;
+        val newEndTime = ZonedDateTime.now().plusSeconds(45);
         if(event.getType()==EventType.CAR_IN) {
-            carPlace.setCode("1");
-            //TUTAJ TRZEBA WSTAWIC TICKET DO BAZY TAKI NA 5 MIN
+
+            var addTicket = false;
+            if(carPlace.haveTicket() && carPlace.getCurrentTicket().getEndTime().isAfter(newEndTime.toLocalDateTime()))
+                addTicket = true;
+            zoneService.reserveWithChangeStatus(zone.getId(),event.getCarPlaceId(),LocalDateTime.now(),1,addTicket);
 
         }else
-            carPlace.setCode("0");
+            zoneService.reserveWithChangeStatus(zone.getId(),event.getCarPlaceId(),newEndTime.toLocalDateTime(),0,false);
 
-        //tutaj trzeba zrobic update carPlace na bazie
 
         
         

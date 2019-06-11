@@ -5,7 +5,6 @@ import dao.UserDao;
 import dao.ZoneDao;
 import entity.UserEntity;
 import entity.ZoneEntity;
-import jms.Event;
 import lombok.NoArgsConstructor;
 import lombok.val;
 import mappers.ZoneMapper;
@@ -17,12 +16,10 @@ import models.service.ZoneService;
 import org.jboss.annotation.security.SecurityDomain;
 
 import javax.annotation.security.PermitAll;
-import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -100,6 +97,29 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
     public List<Zone> getAll() {
         return zoneDao.getAll().stream().map(ZoneMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void reserveWithChangeStatus(String zoneId, String placeId, LocalDateTime endTime, int carPlaceStatus, boolean addTicket) {
+        val zone = findById(zoneId);
+
+        if (addTicket){
+        zone.getPlaces().stream()
+                .filter(place -> place.getId().equals(placeId))
+                .findFirst()
+                .ifPresent(f -> f.setCurrentTicket(Ticket.builder()
+                        .startTime(LocalDateTime.now())
+                        .endTime(endTime)
+                        .build()));
+        }
+
+        zone.getPlaces().stream()
+                .filter(place -> place.getId().equals(placeId))
+                .findFirst()
+                .ifPresent(f -> f.setStatus(carPlaceStatus));
+        eventDao.findAllPlaceEvents(placeId)
+                .forEach(eventDao::delete);
+        update(zone);
     }
 
     @Override

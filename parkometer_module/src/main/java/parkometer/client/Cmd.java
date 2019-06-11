@@ -2,6 +2,7 @@ package parkometer.client;
 
 import lombok.NoArgsConstructor;
 import lombok.val;
+import models.CarPlace;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ws.rs.core.UriBuilder;
@@ -9,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static java.lang.System.out;
 
@@ -48,10 +50,13 @@ public class Cmd {
                 .filter(z -> z.getCode().equals(code))
                 .findFirst()
                 .get();
-        zone.getPlaces()
-                .forEach(z -> out.println("\t - " + z.getId()));
-        val placeId = scanner.next();
 
+        val mapPlace = zone.getPlaces()
+                .stream()
+                .peek(z -> out.println("\t - " + z.getCode()))
+                .collect(Collectors.toMap(CarPlace::getCode, CarPlace::getId));
+        val carcode = scanner.next();
+        val placeId = mapPlace.get(carcode);
         out.println("Wybierz czas");
         map.forEach((key, value) -> out.println(key + " -> " + value));
         val time = map.get(scanner.nextInt());

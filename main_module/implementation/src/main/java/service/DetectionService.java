@@ -38,19 +38,18 @@ public class DetectionService {
         ZoneServiceImpl zs = new ZoneServiceImpl();
         for(Zone z : zs.getAll()) {
             for (CarPlace cp :z.getPlaces()) {
-                Date date = new Date();
-                long time = date.getTime();//time to milisecundy
-                Timestamp ts = new Timestamp(time);
-                if (cp.getCurrentTicket().getEndTime().isAfter(LocalDateTime.now())) {
+                if (cp.getCurrentTicket()!= null && cp.getCurrentTicket().getEndTime().isBefore(LocalDateTime.now())) {
                     Event event = Event.builder()
                             .carCode(cp.getCode())
                             .carPlaceId(cp.getId())
                             .zoneCode(z.getCode())
                             .zoneId(z.getId())
                             .type(EventType.NEED_TO_GO)
-                            .description("Brak waznego biletu. Idz wystawic mandat !")
+                            .timeOfCreated(LocalDateTime.now())
+                            .description("Brak waznego biletu. Idz wystawic mandat ! Mi")
                             .build();
                     eventService.carOut(event);
+                    logger.info(event);
                     eventService.carIn(event);
                     topic.sendTopic(event);
                 }

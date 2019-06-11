@@ -32,8 +32,8 @@ public class MsgBean implements MessageListener {
         if (message instanceof ObjectMessage) {
             try {
                 val event = (Event) ((ObjectMessage) message).getObject();
-                if (event.getType().equals(EventType.CAR_IN)) eventService.carIn(event);
-                else eventService.carOut(event);
+//                if (event.getType().equals(EventType.CAR_IN)) eventService.carIn(event);
+//                else eventService.carOut(event);
             } catch (JMSException e) {
                 e.printStackTrace();
             }

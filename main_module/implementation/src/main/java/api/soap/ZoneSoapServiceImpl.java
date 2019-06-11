@@ -45,17 +45,17 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
         val newEndTime = ZonedDateTime.now().plusSeconds(45);
         if(event.getType()==EventType.CAR_IN) {
 
-            var addTicket = false;
+            var addTicket = true;
             if(carPlace.haveTicket() && carPlace.getCurrentTicket().getEndTime().isAfter(newEndTime.toLocalDateTime()))
-                addTicket = true;
+                addTicket = false;
             zoneService.reserveWithChangeStatus(zone.getId(),event.getCarPlaceId(),LocalDateTime.now(),1,addTicket);
 
         }else
             zoneService.reserveWithChangeStatus(zone.getId(),event.getCarPlaceId(),newEndTime.toLocalDateTime(),0,false);
 
 
-        
-        
+
+
 
 
 

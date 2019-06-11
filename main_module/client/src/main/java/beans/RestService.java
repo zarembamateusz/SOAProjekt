@@ -2,6 +2,7 @@ package beans;
 
 
 import jms.Event;
+import models.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,4 +22,11 @@ public interface RestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     List<Event> getAllClientEvents(@PathParam("id") String id);
+
+    @Path("users/{login}")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    User getUserByLogin(@PathParam("login") String login);
+
 }

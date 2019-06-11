@@ -20,7 +20,7 @@ public class Event implements Serializable {
     private String zoneCode;
     private EventType type;
     private String description;
-    @JsonIgnore
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeOfCreated = LocalDateTime.now();
 
 }

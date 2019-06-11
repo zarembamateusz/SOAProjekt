@@ -23,7 +23,6 @@ public class ZoneMapper {
                 .id(EntityUtill.extractId(dto::getId))
                 .code(dto.getCode())
                 .responsibleUsers(entities)
-                .responsibleUsers(entities)
                 .build();
 
         zoneEntity.setSeats(dto.getPlaces().stream().map(p -> toCarPlaceEntity(p, zoneEntity)).collect(Collectors.toSet()));

@@ -6,7 +6,6 @@ import jms.service.JMSService;
 import models.CarPlace;
 import models.Zone;
 import models.service.ZoneService;
-import service.IntervalTaskManager;
 
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -31,21 +30,6 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
     @WebMethod
     @Override
     public void action(Event event) {
-        IntervalTaskManager.startIntervalTask();
-        Zone zone = zoneService.findById(event.getZoneId());
-        CarPlace carPlace = null;
-        for(CarPlace cp :zone.getPlaces())
-            if(cp.getId().equals(event.getCarPlaceId()))
-                carPlace = cp;
-        if(carPlace == null) return;
-        if(event.getType()==EventType.CAR_IN) {
-            carPlace.setCode("1");
-            //TUTAJ TRZEBA WSTAWIC TICKET DO BAZY TAKI NA 5 MIN
-
-        }else
-            carPlace.setCode("0");
-
-        //tutaj trzeba zrobic update carPlace na bazie
 
         
         
@@ -54,7 +38,7 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
 
 
 //
-//        topic.sendTopic(event);
+        topic.sendTopic(event);
     }
 
     @Override

@@ -9,43 +9,46 @@
 
 </h:head>
 <h:body>
-   <h:form>
-      <p:commandButton action="#{AlertBean.logout}" value="Wyloguj"  ajax="false"/>
-   </h:form>
-   <h:form id="form">
-   <h:outputLabel value="Twoje powiadomienia"/>
+    <h:form>
+        <p:commandButton action="#{AlertBean.logout}" value="Wyloguj" ajax="false"/>
+    </h:form>
+    <h:form id="form">
+        <h:outputLabel value="Twoje powiadomienia"/>
 
-   <p:dataTable id="multichooser" var="event" value="#{AlertBean.eventList}" widgetVar="eventTable" rowKey="#{event.id}"
-                emptyMessage="Brak alertów" filteredValue="#{AlertBean.filtredEventList}" >
+        <p:dataTable id="multichooser" var="event" value="#{AlertBean.eventList}" widgetVar="eventTable"
+                     rowKey="#{event.id}"
+                     emptyMessage="Brak alertów" filteredValue="#{AlertBean.filtredEventList}">
 
-      <p:column headerText="Id strefy: " style="width:100px;" >
-         <h:outputText value="#{event.zoneId}" />
-      </p:column>
+            <p:column headerText="Id strefy: " style="width:100px;">
+                <h:outputText value="#{event.zoneCode}"/>
+            </p:column>
 
-      <p:column headerText="Id czujnika: " style="width:100px;" >
-         <h:outputText value="#{event.carPlaceId}" />
-      </p:column>
+            <p:column headerText="Id czujnika: " style="width:100px;">
+                <h:outputText value="#{event.carCode}"/>
+            </p:column>
 
-      <p:column filterBy="#{event.type}" headerText="Typ: " footerText="" filterMatchMode="in" style="width:70px;">
-         <f:facet name="filter">
-            <p:selectCheckboxMenu label="Typy" onchange="PF('eventTable').filter()" scrollHeight="150" styleClass="custom-filter">
-               <f:selectItems value="#{AlertBean.eventTypes}" />
-            </p:selectCheckboxMenu>
-         </f:facet>
-         <h:outputText value="#{event.type}" />
-      </p:column>
+            <p:column filterBy="#{event.type}" headerText="Typ: " footerText="" filterMatchMode="in"
+                      style="width:70px;">
+                <f:facet name="filter">
+                    <p:selectCheckboxMenu label="Typy" onchange="PF('eventTable').filter()" scrollHeight="150"
+                                          styleClass="custom-filter">
+                        <f:selectItems value="#{AlertBean.eventTypes}"/>
+                    </p:selectCheckboxMenu>
+                </f:facet>
+                <h:outputText value="#{event.type}"/>
+            </p:column>
 
-      <p:column headerText="Opis alertu: " style="width:200px;" >
-         <h:outputText value="#{event.description}" />
-      </p:column>
+            <p:column headerText="Opis alertu: " style="width:200px;">
+                <h:outputText value="#{event.description}"/>
+            </p:column>
 
-      <!--<f:facet name="footer">-->
-        <!---->
-      <!--</f:facet>-->
+            <!--<f:facet name="footer">-->
+            <!---->
+            <!--</f:facet>-->
 
-   </p:dataTable>
-   <!--<p:poll interval="3" update="form" listener="#{AlertBean.getEventList()}"/>-->
-   </h:form>
+        </p:dataTable>
+        <!--<p:poll interval="3" update="form" listener="#{AlertBean.getEventList()}"/>-->
+    </h:form>
 </h:body>
 
 </html>

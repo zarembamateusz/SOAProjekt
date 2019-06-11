@@ -12,7 +12,6 @@
         <module>main_module</module>
         <module>parkometer_module</module>
         <module>simulation_mock_module</module>
-        <module>mobile_app_module</module>
     </modules>
     <build>
         <plugins>

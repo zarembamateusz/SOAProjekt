@@ -23,14 +23,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-
 @ManagedBean(name = "DashboardBean")
 @SessionScoped
 public class DashboardBean implements Serializable {
 
     private User currentUser;
     @Getter
-    private List<String> carPlaceType = new ArrayList<String>(){{
+    private List<String> carPlaceType = new ArrayList<String>() {{
         add("WOLNE");
         add("ZAJETE");
     }};
@@ -46,7 +45,8 @@ public class DashboardBean implements Serializable {
     private List<String> availableZone = new ArrayList<String>();
 
     @Getter
-    private Map<CarPlace,String>  carPlaceMap = new HashMap<>();
+    private Map<CarPlace, String> carPlaceMap = new HashMap<>();
+
     @PostConstruct
     public void init() {
         val principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -67,16 +67,16 @@ public class DashboardBean implements Serializable {
         carPlaces = new ArrayList<>();
         carPlaceMap.clear();
         if (currentUser.getRole() == Role.Manager) {
-            for(Zone z : zoneService.getAll()){
+            for (Zone z : zoneService.getAll()) {
                 for (CarPlace cp : z.getPlaces()) {
                     carPlaceMap.put(cp, z.getCode());
                     carPlaces.add(cp);
                 }
                 availableZone.add(z.getCode());
             }
-        }else {
-            for(Zone z : currentUser.getZones().stream().map(zoneService::findById)
-                    .collect(Collectors.toList())){
+        } else {
+            for (Zone z : currentUser.getZones().stream().map(zoneService::findById)
+                    .collect(Collectors.toList())) {
                 for (CarPlace cp : z.getPlaces()) {
                     carPlaceMap.put(cp, z.getCode());
                     carPlaces.add(cp);
@@ -88,21 +88,20 @@ public class DashboardBean implements Serializable {
         return carPlaces;
     }
 
-    public String getCarPlaceStatus(CarPlace carPlace){
-        if(carPlace.getStatus() == 1)
+    public String getCarPlaceStatus(CarPlace carPlace) {
+        if (carPlace.getStatus() == 1)
             return "ZAJETE";
         else
             return "WOLNE";
 
     }
 
-    public String getExpiringTime(CarPlace carPlace){
-        if(carPlace.haveTicket())
+    public String getExpiringTime(CarPlace carPlace) {
+        if (carPlace.haveTicket())
             return carPlace.getCurrentTicket().getEndTime().toString();
         else
             return "Brak biletu";
     }
-
 
 
     public String logout() {

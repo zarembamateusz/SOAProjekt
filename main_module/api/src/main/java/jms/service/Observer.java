@@ -1,4 +1,7 @@
 package jms.service;
 
-public class Observer {
+import jms.Event;
+
+public interface Observer {
+    void action(Event event);
 }

@@ -20,6 +20,7 @@
             <url-pattern>/alert.xhtml</url-pattern>
             <url-pattern>/user.xhtml</url-pattern>
             <url-pattern>/zone.xhtml</url-pattern>
+            <web-resource-name></web-resource-name>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>

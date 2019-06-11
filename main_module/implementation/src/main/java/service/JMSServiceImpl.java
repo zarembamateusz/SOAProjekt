@@ -17,7 +17,7 @@ import javax.jms.Topic;
 @Stateless
 @PermitAll
 @SecurityDomain("test-policy")
-public class JMSServiceImpl implements JMSService{
+public class JMSServiceImpl implements JMSService {
 
     @Resource(mappedName = "java:jboss/exported/jms/topic/test")
     private Topic topic;
@@ -27,6 +27,6 @@ public class JMSServiceImpl implements JMSService{
 
     @Override
     public void sendTopic(Event event) {
-        jmsContext.createProducer().send(topic,event);
+        jmsContext.createProducer().send(topic, event);
     }
 }

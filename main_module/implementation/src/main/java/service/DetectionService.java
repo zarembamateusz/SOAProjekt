@@ -49,7 +49,7 @@ public class DetectionService {
                 .peek(logger::info)
                 .filter(eventEntity -> eventEntity.getType().equals(EventType.CAR_IN))
                 .peek(logger::info)
-                .filter(eventEntity -> eventEntity.getTimeOfCreated().isBefore(LocalDateTime.now().minusMinutes(2)))
+                .filter(eventEntity -> eventEntity.getTimeOfCreated().isBefore(LocalDateTime.now().minusMinutes(1)))
                 .peek(logger::info)
                 .filter(eventEntity -> !zoneService.getByCarId(eventEntity.getCarPlaceId()).haveTicket())
                 .peek(eventEntity -> eventEntity.setType(EventType.TICKET_NOT_BOUGHT))

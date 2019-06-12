@@ -24,7 +24,8 @@ public class CarPlaceEntity {
     @JoinColumn(name = "zone_id")
     private ZoneEntity zone;
 
-    private int status;
+    @Builder.Default
+    private int status = 0;
     private String code;
 
 }

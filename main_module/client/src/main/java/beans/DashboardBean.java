@@ -64,6 +64,7 @@ public class DashboardBean implements Serializable {
 
 
     public List<CarPlace> getCarPlaces() {
+        availableZone = new ArrayList<>();
         carPlaces = new ArrayList<>();
         carPlaceMap.clear();
         if (currentUser.getRole() == Role.Manager) {

@@ -57,7 +57,7 @@
             <h:selectOneMenu id="zoneInput" value="#{zone}" converter="zoneConverter" disabled="#{role =='ADMIN'}">
                 <f:selectItems value="#{ZoneBean.getAllZones()}" var="zzone" itemValue="#{zzone}" itemLabel="#{zzone.getCode()}"/>
             </h:selectOneMenu>
-            <h:commandButton value="Dodaj" action="#{UserBean.createUser(login,password,name, lastname, role, zone)}"/>
+            <h:commandButton value="Dodaj" action="#{UserBean.createUser(login,password,name, lastName, role, zone)}"/>
         </h:form>
     </h:panelGrid>
 </h:body>

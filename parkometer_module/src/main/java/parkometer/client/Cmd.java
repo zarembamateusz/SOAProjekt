@@ -61,7 +61,7 @@ public class Cmd {
         map.forEach((key, value) -> out.println(key + " -> " + value));
         val time = map.get(scanner.nextInt());
         //do ent time trzeba dodac jeszcze 5min bo bedziemy
-        val endTime = ZonedDateTime.now().plusSeconds(time+45);
+        val endTime = time ==1 ? ZonedDateTime.now().plusSeconds(time+45) : ZonedDateTime.now().plusMinutes(time);
 
         client.putNewTicket(zone.getId(), placeId, endTime.toLocalDateTime().toString());
 

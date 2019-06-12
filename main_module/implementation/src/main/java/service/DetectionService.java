@@ -50,8 +50,10 @@ public class DetectionService {
                             .build();
                     eventService.carOut(event);
                     logger.info(event);
-                    eventService.carIn(event);
-                    topic.sendTopic(event);
+                    if (cp.getStatus() == 1) {
+                        eventService.carIn(event);
+                        topic.sendTopic(event);
+                    }
                 }
             }
         }

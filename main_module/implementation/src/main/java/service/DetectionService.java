@@ -38,15 +38,15 @@ public class DetectionService {
         ZoneServiceImpl zs = new ZoneServiceImpl();
         for(Zone z : zs.getAll()) {
             for (CarPlace cp :z.getPlaces()) {
-                if (cp.getCurrentTicket()!= null && cp.getCurrentTicket().getEndTime().isBefore(LocalDateTime.now())) {
+                if (cp.getCurrentTicket()!= null && cp.getCurrentTicket().checkIfIsExpired()) {
                     Event event = Event.builder()
                             .carCode(cp.getCode())
                             .carPlaceId(cp.getId())
                             .zoneCode(z.getCode())
                             .zoneId(z.getId())
                             .type(EventType.NEED_TO_GO)
-                            .timeOfCreated(LocalDateTime.now())
-                            .description("Brak waznego biletu. Idz wystawic mandat ! Mi")
+                            .timeOfCreated(LocalDateTime.now().toString())
+                            .description("Brak waznego biletu. Idz wystawic mandat ! \n Auto powinno odjechac o: " + cp.getCurrentTicket().getEndTime())
                             .build();
                     eventService.carOut(event);
                     logger.info(event);

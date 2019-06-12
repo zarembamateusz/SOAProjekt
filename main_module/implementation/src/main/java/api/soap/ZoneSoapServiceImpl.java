@@ -46,7 +46,7 @@ public class ZoneSoapServiceImpl implements ZoneSoapService {
         if(event.getType()==EventType.CAR_IN) {
 
             var addTicket = true;
-            if(carPlace.haveTicket() && carPlace.getCurrentTicket().getEndTime().isAfter(newEndTime.toLocalDateTime()))
+            if(carPlace.haveTicket() && LocalDateTime.parse(carPlace.getCurrentTicket().getEndTime()).isAfter(newEndTime.toLocalDateTime()))
                 addTicket = false;
             zoneService.reserveWithChangeStatus(zone.getId(),event.getCarPlaceId(),LocalDateTime.now(),1,addTicket);
 

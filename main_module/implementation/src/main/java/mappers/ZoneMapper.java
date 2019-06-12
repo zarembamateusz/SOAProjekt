@@ -11,6 +11,7 @@ import models.Ticket;
 import models.Zone;
 import utill.EntityUtill;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,8 +47,8 @@ public class ZoneMapper {
         if (ticket == null) return null;
         return TicketEntity.builder()
                 .id(EntityUtill.extractId(ticket::getId))
-                .endTime(ticket.getEndTime())
-                .startTime(ticket.getStartTime())
+                .endTime(LocalDateTime.parse(ticket.getEndTime()))
+                .startTime(LocalDateTime.parse(ticket.getStartTime()))
                 .carPlace(entity)
                 .build();
     }
@@ -74,8 +75,8 @@ public class ZoneMapper {
     private Ticket toTicket(final TicketEntity entity) {
         return Optional.ofNullable(entity)
                 .map(en -> Ticket.builder()
-                        .endTime(en.getEndTime())
-                        .startTime(en.getStartTime())
+                        .endTime(en.getEndTime().toString())
+                        .startTime(en.getStartTime().toString())
                         .build()).orElse(null);
 
     }

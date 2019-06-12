@@ -108,8 +108,8 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .filter(place -> place.getId().equals(placeId))
                 .findFirst()
                 .ifPresent(f -> f.setCurrentTicket(Ticket.builder()
-                        .startTime(LocalDateTime.now())
-                        .endTime(endTime)
+                        .startTime(LocalDateTime.now().toString())
+                        .endTime(endTime.toString())
                         .build()));
         }
 
@@ -129,8 +129,8 @@ public class ZoneServiceImpl implements ZoneService, Serializable {
                 .filter(place -> place.getId().equals(placeId))
                 .findFirst()
                 .ifPresent(f -> f.setCurrentTicket(Ticket.builder()
-                        .startTime(LocalDateTime.now())
-                        .endTime(endTime)
+                        .startTime(LocalDateTime.now().toString())
+                        .endTime(endTime.toString())
                         .build()));
         eventDao.findAllPlaceEvents(placeId)
                 .forEach(eventDao::delete);

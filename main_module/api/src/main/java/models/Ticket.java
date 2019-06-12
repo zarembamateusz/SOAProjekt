@@ -17,12 +17,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Ticket implements Serializable {
     private String id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endTime;
+    private String startTime;
+    private String endTime;
 
     public boolean checkIfIsExpired() {
-        return endTime.isBefore(LocalDateTime.now());
+        return LocalDateTime.parse(endTime).isBefore(LocalDateTime.now());
     }
 }

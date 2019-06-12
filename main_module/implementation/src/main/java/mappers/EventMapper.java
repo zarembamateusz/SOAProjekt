@@ -6,6 +6,8 @@ import jms.Event;
 import lombok.experimental.UtilityClass;
 import utill.EntityUtill;
 
+import java.time.LocalDateTime;
+
 @UtilityClass
 public class EventMapper {
     public Event toDto(final EventEntity eventEntity) {
@@ -15,7 +17,7 @@ public class EventMapper {
                 .type(eventEntity.getType())
                 .zoneId(eventEntity.getZoneId())
                 .id(eventEntity.getId())
-                .timeOfCreated(eventEntity.getTimeOfCreated())
+                .timeOfCreated(eventEntity.getTimeOfCreated().toString())
                 .carCode(eventEntity.getCarCode())
                 .zoneCode(eventEntity.getZoneCode())
                 .build();
@@ -28,7 +30,7 @@ public class EventMapper {
                 .description(event.getDescription())
                 .carPlaceId(event.getCarPlaceId())
                 .zoneId(event.getZoneId())
-                .timeOfCreated(event.getTimeOfCreated())
+                .timeOfCreated(LocalDateTime.parse(event.getTimeOfCreated()))
                 .userId(userId)
                 .carCode(event.getCarCode())
                 .zoneCode(event.getZoneCode())

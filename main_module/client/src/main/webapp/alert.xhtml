@@ -5,20 +5,21 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
-<h:head>
+<h:head/>
 
-</h:head>
 <h:body>
     <h:form>
         <p:commandButton action="#{AlertBean.logout}" value="Wyloguj" ajax="false"/>
     </h:form>
+
     <h:form id="form">
-        <h:outputLabel value="Twoje powiadomienia"/>
+        <p:poll interval="2" listener="#{AlertBean.polling()}" update="multichooser"/>
+
+        <p:outputLabel value="Twoje powiadomienia"/>
 
         <p:dataTable id="multichooser" var="event" value="#{AlertBean.eventList}" widgetVar="eventTable"
                      rowKey="#{event.id}"
                      emptyMessage="Brak alertów" filteredValue="#{AlertBean.filtredEventList}">
-
             <p:column headerText="Id strefy: " style="width:100px;">
                 <h:outputText value="#{event.zoneCode}"/>
             </p:column>

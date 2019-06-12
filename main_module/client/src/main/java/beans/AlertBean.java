@@ -16,8 +16,11 @@ import javax.ejb.EJB;
 import javax.enterprise.event.Observes;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,9 +28,10 @@ import java.util.List;
 
 @ManagedBean(name = "AlertBean")
 @SessionScoped
-public class AlertBean{
+public class AlertBean {
 
-
+    private boolean check1 = false;
+    private boolean check2 = false;
     private final String path = "http://127.0.0.1:8080/implementation/api/rest/";
     private final static Logger loger = Logger.getLogger(AlertBean.class);
     private final RestService client = new ResteasyClientBuilder().build()
@@ -40,6 +44,7 @@ public class AlertBean{
         return eventTypes;
     }
 
+    public List<Event> eventsList;
 
     public List<Event> getFiltredEventList() {
         return filtredEventList;
@@ -56,12 +61,19 @@ public class AlertBean{
     public void init() {
         val login = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         user = client.getUserByLogin(login);
+        eventsList = client.getAllClientEvents(user.getId());
     }
 
 
     public List<Event> getEventList() {
         // tylko do testów
         return client.getAllClientEvents(user.getId());
+    }
+
+    public void polling() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+
     }
 
     public String logout() {

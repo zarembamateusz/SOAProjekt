@@ -5,11 +5,14 @@ import entity.TicketEntity;
 import entity.UserEntity;
 import entity.ZoneEntity;
 import lombok.experimental.UtilityClass;
+import lombok.val;
 import models.CarPlace;
 import models.Ticket;
 import models.Zone;
 import utill.EntityUtill;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,49 +20,64 @@ import java.util.stream.Collectors;
 public class ZoneMapper {
 
     public ZoneEntity toEntity(final Zone dto, final Set<UserEntity> entities) {
-        return ZoneEntity.builder()
+        val zoneEntity = ZoneEntity.builder()
                 .id(EntityUtill.extractId(dto::getId))
-                .responsibleUsers(entities)
-                .seats(dto.getPlaces().stream().map(ZoneMapper::toCarPlaceEntity).collect(Collectors.toSet()))
+                .code(dto.getCode())
                 .responsibleUsers(entities)
                 .build();
+
+        zoneEntity.setSeats(dto.getPlaces().stream().map(p -> toCarPlaceEntity(p, zoneEntity)).collect(Collectors.toSet()));
+        return zoneEntity;
     }
 
 
-    private CarPlaceEntity toCarPlaceEntity(final CarPlace place) {
-        return CarPlaceEntity.builder()
+    private CarPlaceEntity toCarPlaceEntity(final CarPlace place, final ZoneEntity zoneEntity) {
+        val entity = CarPlaceEntity.builder()
                 .id(EntityUtill.extractId(place::getId))
-                .ticketEntity(toTicketEntity(place.getCurrentTicket()))
+                .zone(zoneEntity)
+                .status(place.getStatus())
+                .code(place.getCode())
                 .build();
+        val ticket = toTicketEntity(entity, place.getCurrentTicket());
+        entity.setTicketEntity(ticket);
+        return entity;
     }
 
-    private TicketEntity toTicketEntity(final Ticket ticket) {
+    private TicketEntity toTicketEntity(final CarPlaceEntity entity, final Ticket ticket) {
+        if (ticket == null) return null;
         return TicketEntity.builder()
                 .id(EntityUtill.extractId(ticket::getId))
-                .endTime(ticket.getEndTime())
-                .startTime(ticket.getStartTime())
+                .endTime(LocalDateTime.parse(ticket.getEndTime()))
+                .startTime(LocalDateTime.parse(ticket.getStartTime()))
+                .carPlace(entity)
                 .build();
     }
 
     public Zone toDto(final ZoneEntity entity) {
         return Zone.builder()
                 .id(entity.getId())
+                .code(entity.getCode())
                 .workers(entity.getResponsibleUsers().stream().map(UserEntity::getId).collect(Collectors.toSet()))
                 .places(entity.getSeats().stream().map(ZoneMapper::toCarPlace).collect(Collectors.toSet()))
                 .build();
     }
 
-    private CarPlace toCarPlace(final CarPlaceEntity entity) {
+    public CarPlace toCarPlace(final CarPlaceEntity entity) {
+
         return CarPlace.builder()
                 .id(entity.getId())
                 .currentTicket(toTicket(entity.getTicketEntity()))
+                .status(entity.getStatus())
+                .code(entity.getCode())
                 .build();
     }
+
     private Ticket toTicket(final TicketEntity entity) {
-        return Ticket.builder()
-                .endTime(entity.getEndTime())
-                .startTime(entity.getStartTime())
-                .build();
+        return Optional.ofNullable(entity)
+                .map(en -> Ticket.builder()
+                        .endTime(en.getEndTime().toString())
+                        .startTime(en.getStartTime().toString())
+                        .build()).orElse(null);
 
     }
 }

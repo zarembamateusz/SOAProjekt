@@ -1,12 +1,11 @@
 package models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jms.Event;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,6 +19,6 @@ public class User implements Serializable {
     private String lastName;
     private String login;
     private String password;
-    @Builder.Default
+    @Singular
     private Set<String> zones = new HashSet<>();
 }

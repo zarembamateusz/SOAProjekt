@@ -1,9 +1,6 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,14 +17,18 @@ public class ZoneEntity {
     @Builder.Default
     private final String id = UUID.randomUUID().toString();
 
-    @OneToMany(mappedBy = "zone")
-    private  Set<CarPlaceEntity> seats;
+    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<CarPlaceEntity> seats;
 
-    @ManyToMany
+    private String code;
+
+    @ManyToMany()
     @JoinTable(
             name = "work_zone",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "zone_id"))
-    private  Set<UserEntity> responsibleUsers;
+    private Set<UserEntity> responsibleUsers;
 
 }

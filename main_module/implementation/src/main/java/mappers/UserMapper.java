@@ -1,9 +1,12 @@
 package mappers;
 
 
+import entity.EventEntity;
 import entity.UserEntity;
 import entity.ZoneEntity;
+import jms.Event;
 import lombok.experimental.UtilityClass;
+import lombok.val;
 import models.User;
 import utill.EntityUtill;
 
@@ -21,6 +24,7 @@ public class UserMapper {
                 .id(entity.getId())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
+                .role(entity.getRole())
                 .zones(entity.getZones().stream().map(ZoneEntity::getId).collect(Collectors.toSet()))
                 .build();
     }

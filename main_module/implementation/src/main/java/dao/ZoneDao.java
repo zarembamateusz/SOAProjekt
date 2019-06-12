@@ -1,5 +1,6 @@
 package dao;
 
+import entity.CarPlaceEntity;
 import entity.ZoneEntity;
 import lombok.NoArgsConstructor;
 import lombok.val;
@@ -30,7 +31,16 @@ public class ZoneDao extends GenericDao<ZoneEntity, String> {
 
     @Override
     public List<ZoneEntity> getAll() {
-        val query = em.createQuery("FROM ZoneEntity", ZoneEntity.class);
-        return query.getResultList();
+        em.getTransaction().begin();
+        val query = em.createQuery("FROM ZoneEntity", ZoneEntity.class).getResultList();
+        em.getTransaction().commit();
+        return query;
+    }
+
+    public CarPlaceEntity getCarPlaceById(String id) {
+        val query = em.createQuery("SELECT c from CarPlaceEntity c where c.id = : id", CarPlaceEntity.class)
+                .setParameter("id",id);
+
+        return query.getSingleResult();
     }
 }

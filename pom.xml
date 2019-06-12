@@ -12,6 +12,7 @@
         <module>main_module</module>
         <module>parkometer_module</module>
         <module>simulation_mock_module</module>
+        <module>mobile_app_module</module>
     </modules>
     <build>
         <plugins>
@@ -31,8 +32,6 @@
                             <version>1.16.20</version>
                         </path>
                     </annotationProcessorPaths>
-                    <source>11</source>
-                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>

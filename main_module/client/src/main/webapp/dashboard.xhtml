@@ -4,38 +4,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 
 </h:head>
 <h:body>
 
-    <p:outputLabel value="Witaj na swojej tablicy !"/>
+    <p:outputLabel value="Witaj na swojej tablicy !" />
+    <h:form>
+        <p:commandButton action="#{DashboardBean.logout}" value="Wyloguj"  ajax="false"/>
+    </h:form>
 
     <h:form id="zoneInfo">
-        <p:dataTable id="multichooser" var="zone" value="#{DashboardBean.zoneList}" widgetVar="bookTable"
-                     rowKey="#{zone.id}"
-                     emptyMessage="Nie można załadować danych o strefach !">
 
-            <p:column headerText="Id strefy" style="width:140px;">
-                <h:outputText value="#{zone.id}"/>
+        <p:dataTable id="multichooser" var="carPlace" value="#{DashboardBean.carPlaces}" widgetVar="zonesTable"
+                     emptyMessage="Brak danych o strefach !" filteredValue="#{DashboardBean.carPlacesFiltred}">
+
+            <p:column filterBy="#{DashboardBean.carPlaceMap.get(carPlace)}" headerText="Id strefy : " footerText="" filterMatchMode="in" style="width:140px;">
+                <f:facet name="filter">
+                    <p:selectCheckboxMenu label="Id strefy:" onchange="PF('zonesTable').filter()" scrollHeight="150" styleClass="custom-filter">
+                        <f:selectItems value="#{DashboardBean.availableZone}" />
+                    </p:selectCheckboxMenu>
+                </f:facet>
+                <h:outputText value="#{DashboardBean.carPlaceMap.get(carPlace)}" />
             </p:column>
 
-            <p:column headerText="Liczba zajętych miejsc" style="width:140px;">
-                <ui:repeat value="#{zone.getPlaces()}" var="place">
-                    <h:outputText value="#{place.getId()}"/>
-                </ui:repeat>
+            <p:column headerText="Id miejsca" style="width:140px;">
+                <h:outputText value="#{carPlace.code}"/>
             </p:column>
 
-            <p:column headerText="Aktualnie zakupione bilety" style="width:140px;">
-                <ui:repeat value="#{zone.getPlaces()}" var="place">
-                    <h:outputText value="#{place.getId()}"/>
-                </ui:repeat>
+            <p:column filterBy="#{DashboardBean.getCarPlaceStatus(carPlace)}" headerText="Typ: " footerText="" filterMatchMode="in" style="width:140px;">
+                <f:facet name="filter">
+                    <p:selectCheckboxMenu label="Status miejsca" onchange="PF('zonesTable').filter()" scrollHeight="150" styleClass="custom-filter">
+                        <f:selectItems value="#{DashboardBean.carPlaceType}" />
+                    </p:selectCheckboxMenu>
+                </f:facet>
+                <h:outputText value="#{DashboardBean.getCarPlaceStatus(carPlace)}" />
             </p:column>
+
+            <p:column headerText="Czas ważności biletu" style="width:140px;">
+                <h:outputText value="#{DashboardBean.getExpiringTime(carPlace)}"/>
+            </p:column>
+
+
 
         </p:dataTable>
     </h:form>
+
+    <a href="http://localhost:8080/passwords.xhtml">Zmiana hasła</a>
+
 
 </h:body>
 
